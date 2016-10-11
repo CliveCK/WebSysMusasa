@@ -1,0 +1,70 @@
+﻿<%@ Master Language="VB" AutoEventWireup="true" CodeBehind="Site.master.vb" Inherits="WebSysME.SiteMaster" %>
+
+<%@ Import Namespace="WebSysME" %>
+<%@ Import Namespace="Microsoft.AspNet.Identity" %>
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - ME System</title>
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script type="text/javascript" src="Scripts/jquery-1.10.2.min.js"></script>
+    <link href="Content/MessagesCSS.css" rel="stylesheet" type="text/css" />
+    <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+     <form runat="server">
+   <table border="0" cellpadding="0" cellspacing="0" style="width: 100%" class="Header">
+            <tr>
+                <td class="MainHeaderTile" style="width: 100%;margin-right:2%">
+                    <table border="0" cellpadding="0" cellspacing="0" style="width: 100%">
+                        <tr>
+                            <td class="MainHeaderLogo"><h4 style="font-family:Tahoma;color:whitesmoke"></h4></td>
+                            <td class="MainHeaderTile" align="right" valign="top" style="font-family:'Segoe UI';font-size:10pt"> Logged into
+                                <asp:Label ID="lblOrg" runat="server" Font-Size="11pt"></asp:Label> as 
+                                <asp:HyperLink ID="hypUser" runat="server" Font-Bold="True" Font-Names="Sans Serif" Font-Size="9pt"
+                ForeColor="Blue" NavigateUrl="~/MyInfomation.aspx" ToolTip="Click here to edit your details"></asp:HyperLink>&nbsp;|
+                                <asp:LinkButton ID="cmdLogout" runat="server" Font-Bold="True" Font-Names="Sagoe UI"
+                Font-Size="11pt" ForeColor="Blue" ToolTip="Click here to logout" CausesValidation="False">Logout</asp:LinkButton>&nbsp;&nbsp;<br />
+                                <asp:Label runat="server" Font-Size="10pt" ForeColor="DarkGreen" Text="" ID="lblOrgInfor"></asp:Label>&nbsp<br />
+                                <b style="margin-right:1%"><asp:LinkButton runat="server" Text="Home" PostBackUrl="~/Default.aspx" ></asp:LinkButton></b>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+       <tr>
+                <td colspan="2" valign="top">
+                    <telerik:RadMenu ID="radmMainMenu" runat="server" CausesValidation="False" Style="z-index: 2900">
+                    </telerik:RadMenu>
+                </td>
+            </tr>
+        </table>
+<hr>
+   
+         <telerik:RadScriptManager ID="RadScriptManager1" runat="server" EnablePageMethods="true"
+                                                EnablePartialRendering="true">
+                                                <Scripts>
+                                                    <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.Core.js" />
+                                                    <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.jQuery.js" />
+                                                </Scripts>
+                                            </telerik:RadScriptManager>
+<div class="Body">
+        <asp:ContentPlaceHolder runat="server" ID="ContentPlaceHolder1"></asp:ContentPlaceHolder> 
+        <asp:ContentPlaceHolder runat="server" ID="MainContent"></asp:ContentPlaceHolder>
+</div>
+        </form>
+        
+<hr>
+<footer style="position:fixed;bottom:0;left:0" class="MainHeaderTile">
+  <div style="color:darkblue ;margin-left:37%;font-family:sans-serif">
+      <p> Copyright &copy; 2015 PrimaSys &ndash; All Rights Reserved<br>
+  </div>
+</footer>
+    
+  </body>
+</html>

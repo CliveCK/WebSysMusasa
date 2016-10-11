@@ -1,0 +1,26 @@
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="StaffTrainingPermissions.ascx.vb" Inherits="WebSysME.StaffTrainingPermissions" %>
+
+
+<%@ Register Src="~/Controls/ComplementaryListboxes.ascx" TagName="ComplementaryListboxes"
+    TagPrefix="uc1" %>
+<table class="GreyBG" width="100%">
+    <tr>
+        <td class="DetailsSection" colspan="3">
+            Trainings</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width: 170px" valign="top">
+            <asp:ListBox ID="lstTrainings" runat="server" AutoPostBack="True" Width="170px" Height="208px" CssClass="form-control"></asp:ListBox></td>
+        <td style="width: 14px">
+        </td>
+        <td valign="top" style="background-color: whitesmoke">
+            <uc1:ComplementaryListboxes ID="ComplementaryListboxes1" runat="server" CssClass="form-control"/>
+            <asp:Button ID="cmdApply" runat="server" Text="Apply" CssClass="btn btn-default"/></td>
+    </tr>
+    <tr>
+        <td style="width: 14px">
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>

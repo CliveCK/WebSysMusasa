@@ -1,0 +1,865 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+		Documentation:
+		
+		<ListName> the name of the list. appears in the menu of lookup lists </ListName>
+		<ListDescription> the description of the list. appears in the menu of lookup lists </ListDescription>
+		<SelectQuery>the select query which selects data for the list. columns must be explicitly specified </SelectQuery>
+		<InsertQuery>the insert query to use when adding new data. the VALUES are expressed as %ColNumber%</InsertQuery>
+		<UpdateQuery>the update query to use when updating data. the VALUES are expressed as %ColNumber%</UpdateQuery>
+		<DeleteQuery>the delete query to use when deleting data. the VALUES are expressed as %ColNumber%</DeleteQuery>
+		<HiddenColumns>list of columns that are part of the select query but should really not be visible to the user</HiddenColumns>
+		<NonEditableColumns>list of columns that should not be editable by the user. the columns should not be in the hiddencloumns field</NonEditableColumns>
+		<PermissionID>the associated permisison ID from the database. only users with this permission id will be able to view or edit this list</PermissionID>
+		%ColNumber% FORMAT
+		The %ColNumber% should be the index of the column in the select query. The columns have an array index of 1.
+		The application will replace NonEditable %ColNumber% values with data from the database. This helps in the WHERE clauses
+		In Editable columns, %ColNumber% values are replaced with values supplied for that particluar %ColNumber% column
+		 by the user.
+		Care should be taken to make sure that the %ColNumber% are correct otherwise data will be corrupted. 
+		
+		%ColNumber% example:
+			<SelectQuery>SELECT [ID], [Description] FROM [luList]</SelectQuery>
+			<InsertQuery>INSERT INTO [luList] ([Description]) VALUES (%3%)</InsertQuery>
+			<UpdateQuery>UPDATE [luList] SET [Description]=%3% WHERE [ID]=%2%</UpdateQuery>
+			<DeleteQuery>DELETE FROM [luList] WHERE [ID]=%2%</DeleteQuery>
+		
+-->
+<LookupListCollection>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Activities</ListName>
+    <ListDescription>A list of activities.</ListDescription>
+    <SelectQuery>SELECT [ActivityID],[ActivityNo], [Description] FROM [tblActivities]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblActivities] ([ActivityNo],[Description]) VALUES (%3%,%4%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblActivities] SET [ActivityNo]=%3% ,[Description]=%4% WHERE [ActivityID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblActivities] WHERE [ActivityID]=%2%</DeleteQuery>
+    <HiddenColumns>ActivityID</HiddenColumns>
+    <NonEditableColumns>ActivityID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+ <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Document Object Types</ListName>
+    <ListDescription>A list of document object types.</ListDescription>
+    <SelectQuery>SELECT [ObjectTypeID], [Description] FROM [luDocumentObjectTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luDocumentObjectTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luDocumentObjectTypes] SET [Description]=%3% WHERE [ObjectTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luDocumentObjectTypes] WHERE [ObjectTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>ObjectTypeID</HiddenColumns>
+    <NonEditableColumns>ObjectTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>0</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Priority Needs</ListName>
+    <ListDescription>A list of priority needs.</ListDescription>
+    <SelectQuery>SELECT [NeedID], [Description] FROM [luNeeds]</SelectQuery>
+    <InsertQuery>INSERT INTO [luNeeds] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luNeeds] SET [Description]=%3% WHERE [NeedID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luNeeds] WHERE [NeedID]=%2%</DeleteQuery>
+    <HiddenColumns>NeedID</HiddenColumns>
+    <NonEditableColumns>NeedID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>School Types</ListName>
+    <ListDescription>A list of school types.</ListDescription>
+    <SelectQuery>SELECT [SchoolTypeID], [Description] FROM [luSchoolTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luSchoolTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luSchoolTypes] SET [Description]=%3% WHERE [SchoolTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luSchoolTypes] WHERE [SchoolTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>SchoolTypeID</HiddenColumns>
+    <NonEditableColumns>SchoolTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Asset Types</ListName>
+    <ListDescription>A list of asset types.</ListDescription>
+    <SelectQuery>SELECT [AssetTypeID], [Description] FROM [luAssetTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luAssetTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luAssetTypes] SET [Description]=%3% WHERE [AssetTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luAssetTypes] WHERE [AssetTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>AssetTypeID</HiddenColumns>
+    <NonEditableColumns>AssetTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Beneficiary Types</ListName>
+    <ListDescription>A list of Beneficiary types.</ListDescription>
+    <SelectQuery>SELECT [BeneficiaryTypeID], [Description] FROM [luBeneficiaryType]</SelectQuery>
+    <InsertQuery>INSERT INTO [luBeneficiaryType] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luBeneficiaryType] SET [Description]=%3% WHERE [BeneficiaryTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luBeneficiaryType] WHERE [BeneficiaryTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>BeneficiaryTypeID</HiddenColumns>
+    <NonEditableColumns>BeneficiaryTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Commodities</ListName>
+    <ListDescription>A list of Commodities.</ListDescription>
+    <SelectQuery>SELECT [CommodityID], [Description] FROM [luCommodities]</SelectQuery>
+    <InsertQuery>INSERT INTO [luCommodities] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luCommodities] SET [Description]=%3% WHERE [CommodityID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luCommodities] WHERE [CommodityID]=%2%</DeleteQuery>
+    <HiddenColumns>CommodityID</HiddenColumns>
+    <NonEditableColumns>CommodityID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Health Status</ListName>
+    <ListDescription>A list of Health Statuses.</ListDescription>
+    <SelectQuery>SELECT [ObjectID], [Description] FROM [tblHealthStatus]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblHealthStatus] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblHealthStatus] SET [Description]=%3% WHERE [ObjectID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblHealthStatus] WHERE [ObjectID]=%2%</DeleteQuery>
+    <HiddenColumns>ObjectID</HiddenColumns>
+    <NonEditableColumns>ObjectID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Disability Status</ListName>
+    <ListDescription>A list of Disability Statuses.</ListDescription>
+    <SelectQuery>SELECT [ObjectID], [Description] FROM [tblDisabilityStatus]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblDisabilityStatus] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblDisabilityStatus] SET [Description]=%3% WHERE [ObjectID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblDisabilityStatus] WHERE [ObjectID]=%2%</DeleteQuery>
+    <HiddenColumns>ObjectID</HiddenColumns>
+    <NonEditableColumns>ObjectID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Disability</ListName>
+    <ListDescription>A list of Disabilities.</ListDescription>
+    <SelectQuery>SELECT [ObjectID], [Description] FROM [tblDisability]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblDisability] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblDisability] SET [Description]=%3% WHERE [ObjectID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblDisability] WHERE [ObjectID]=%2%</DeleteQuery>
+    <HiddenColumns>ObjectID</HiddenColumns>
+    <NonEditableColumns>ObjectID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Education Level</ListName>
+    <ListDescription>A list of Education Levels.</ListDescription>
+    <SelectQuery>SELECT [ObjectID], [Description] FROM [tblLevelOfEducation]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblLevelOfEducation] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblLevelOfEducation] SET [Description]=%3% WHERE [ObjectID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblLevelOfEducation] WHERE [ObjectID]=%2%</DeleteQuery>
+    <HiddenColumns>ObjectID</HiddenColumns>
+    <NonEditableColumns>ObjectID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Income Regularity</ListName>
+    <ListDescription>Income Regularity.</ListDescription>
+    <SelectQuery>SELECT [ObjectID], [Description] FROM [tblRegularity]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblRegularity] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblRegularity] SET [Description]=%3% WHERE [ObjectID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblRegularity] WHERE [ObjectID]=%2%</DeleteQuery>
+    <HiddenColumns>ObjectID</HiddenColumns>
+    <NonEditableColumns>ObjectID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Orphanhood</ListName>
+    <ListDescription>A list of Orphanhoods.</ListDescription>
+    <SelectQuery>SELECT [ObjectID], [Description] FROM [tblOrphanhood]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblOrphanhood] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblOrphanhood] SET [Description]=%3% WHERE [ObjectID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblOrphanhood] WHERE [ObjectID]=%2%</DeleteQuery>
+    <HiddenColumns>ObjectID</HiddenColumns>
+    <NonEditableColumns>ObjectID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Income Sources</ListName>
+    <ListDescription>A list of Sources of Income.</ListDescription>
+    <SelectQuery>SELECT [ObjectID], [Description] FROM [tblSourceOfIncome]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblSourceOfIncome] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblSourceOfIncome] SET [Description]=%3% WHERE [ObjectID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblSourceOfIncome] WHERE [ObjectID]=%2%</DeleteQuery>
+    <HiddenColumns>ObjectID</HiddenColumns>
+    <NonEditableColumns>ObjectID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Health Conditions</ListName>
+    <ListDescription>A list of Health Conditions.</ListDescription>
+    <SelectQuery>SELECT [ObjectID], [Description] FROM [tblCondition]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblCondition] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblCondition] SET [Description]=%3% WHERE [ObjectID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblCondition] WHERE [ObjectID]=%2%</DeleteQuery>
+    <HiddenColumns>ObjectID</HiddenColumns>
+    <NonEditableColumns>ObjectID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>School Attendance</ListName>
+    <ListDescription>School Attendance Regularity.</ListDescription>
+    <SelectQuery>SELECT [ObjectID], [Description] FROM [tblAttendance]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblAttendance] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblAttendance] SET [Description]=%3% WHERE [ObjectID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblAttendance] WHERE [ObjectID]=%2%</DeleteQuery>
+    <HiddenColumns>ObjectID</HiddenColumns>
+    <NonEditableColumns>ObjectID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Food Source</ListName>
+    <ListDescription>Source of Food List.</ListDescription>
+    <SelectQuery>SELECT [SourceOfFoodID], [Description] FROM [tblSourceOfFood]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblSourceOfFood] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblSourceOfFood] SET [Description]=%3% WHERE [SourceOfFoodID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblSourceOfFood] WHERE [SourceOfFoodID]=%2%</DeleteQuery>
+    <HiddenColumns>SourceOfFoodID</HiddenColumns>
+    <NonEditableColumns>SourceOfFoodID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>House Condition</ListName>
+    <ListDescription>Condition of House.</ListDescription>
+    <SelectQuery>SELECT [ConditionOfHouseID], [Description] FROM [luConditionOfHouse]</SelectQuery>
+    <InsertQuery>INSERT INTO [luConditionOfHouse] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luConditionOfHouse] SET [Description]=%3% WHERE [ConditionOfHouseID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luConditionOfHouse] WHERE [ConditionOfHouseID]=%2%</DeleteQuery>
+    <HiddenColumns>ConditionOfHouseID</HiddenColumns>
+    <NonEditableColumns>ConditionOfHouseID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Tenure</ListName>
+    <ListDescription>Tenure</ListDescription>
+    <SelectQuery>SELECT [TenureID], [Description] FROM [luTenure]</SelectQuery>
+    <InsertQuery>INSERT INTO [luTenure] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luTenure] SET [Description]=%3% WHERE [TenureID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luTenure] WHERE [TenureID]=%2%</DeleteQuery>
+    <HiddenColumns>TenureID</HiddenColumns>
+    <NonEditableColumns>TenureID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Wealth Rank</ListName>
+    <ListDescription>Wealth Rank</ListDescription>
+    <SelectQuery>SELECT [WealthRankID], [Description] FROM [luWealthRanks]</SelectQuery>
+    <InsertQuery>INSERT INTO [luWealthRanks] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luWealthRanks] SET [Description]=%3% WHERE [WealthRankID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luWealthRanks] WHERE [WealthRankID]=%2%</DeleteQuery>
+    <HiddenColumns>WealthRankID</HiddenColumns>
+    <NonEditableColumns>WealthRankID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Water Source</ListName>
+    <ListDescription>Source of Water</ListDescription>
+    <SelectQuery>SELECT [SourceOfWaterID], [Description] FROM [luSourceOfWater]</SelectQuery>
+    <InsertQuery>INSERT INTO [luSourceOfWater] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luSourceOfWater] SET [Description]=%3% WHERE [SourceOfWaterID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luSourceOfWater] WHERE [SourceOfWaterID]=%2%</DeleteQuery>
+    <HiddenColumns>SourceOfWaterID</HiddenColumns>
+    <NonEditableColumns>SourceOfWaterID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Toilet Type</ListName>
+    <ListDescription>Type of Toilet</ListDescription>
+    <SelectQuery>SELECT [TypeOfToiletID], [Description] FROM [luTypesOfToilet]</SelectQuery>
+    <InsertQuery>INSERT INTO [luTypesOfToilet] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luTypesOfToilet] SET [Description]=%3% WHERE [TypeOfToiletID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luTypesOfToilet] WHERE [TypeOfToiletID]=%2%</DeleteQuery>
+    <HiddenColumns>TypeOfToiletID</HiddenColumns>
+    <NonEditableColumns>TypeOfToiletID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Assets</ListName>
+    <ListDescription>List of Assets</ListDescription>
+    <SelectQuery>SELECT [AssetID], [Description] FROM [tblAssets]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblAssets] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblAssets] SET [Description]=%3% WHERE [AssetID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblAssets] WHERE [AssetID]=%2%</DeleteQuery>
+    <HiddenColumns>AssetID</HiddenColumns>
+    <NonEditableColumns>AssetID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Expenditure Items</ListName>
+    <ListDescription>List of Expenditure Items</ListDescription>
+    <SelectQuery>SELECT [ExpenditureItemID], [Description] FROM [luExpenditureItems]</SelectQuery>
+    <InsertQuery>INSERT INTO [luExpenditureItems] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luExpenditureItems] SET [Description]=%3% WHERE [ExpenditureItemID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luExpenditureItems] WHERE [ExpenditureItemID]=%2%</DeleteQuery>
+    <HiddenColumns>ExpenditureItemID</HiddenColumns>
+    <NonEditableColumns>ExpenditureItemID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Debt Items</ListName>
+    <ListDescription>List of Debt Items</ListDescription>
+    <SelectQuery>SELECT [DebtItemID], [Description] FROM [luDebtItems]</SelectQuery>
+    <InsertQuery>INSERT INTO [luDebtItems] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luDebtItems] SET [Description]=%3% WHERE [DebtItemID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luDebtItems] WHERE [DebtItemID]=%2%</DeleteQuery>
+    <HiddenColumns>DebtItemID</HiddenColumns>
+    <NonEditableColumns>DebtItemID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Project Objectives</ListName>
+    <ListDescription>List of Project Objectives</ListDescription>
+    <SelectQuery>SELECT [ObjectiveID], [Description] FROM [tblObjectives]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblObjectives] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblObjectives] SET [Description]=%3% WHERE [ObjectiveID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblObjectives] WHERE [ObjectiveID]=%2%</DeleteQuery>
+    <HiddenColumns>ObjectiveID</HiddenColumns>
+    <NonEditableColumns>ObjectiveID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Project Outcomes</ListName>
+    <ListDescription>List of Project Outcomes</ListDescription>
+    <SelectQuery>SELECT [OutcomeID], [Description] FROM [tblOutcomes]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblOutcomes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblOutcomes] SET [Description]=%3% WHERE [OutcomeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblOutcomes] WHERE [OutcomeID]=%2%</DeleteQuery>
+    <HiddenColumns>OutcomeID</HiddenColumns>
+    <NonEditableColumns>OutcomeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Project Outputs</ListName>
+    <ListDescription>List of Project Outputs</ListDescription>
+    <SelectQuery>SELECT [OutputID], [Description] FROM [tblOutput]</SelectQuery>
+    <InsertQuery>INSERT INTO [tblOutput] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [tblOutput] SET [Description]=%3% WHERE [OutputID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [tblOutput] WHERE [OutputID]=%2%</DeleteQuery>
+    <HiddenColumns>OutputID</HiddenColumns>
+    <NonEditableColumns>OutputID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Health Center Types</ListName>
+    <ListDescription>List of Health Center Types</ListDescription>
+    <SelectQuery>SELECT [HealthCenterTypeID], [Description] FROM [luHealthCenterTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luHealthCenterTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luHealthCenterTypes] SET [Description]=%3% WHERE [HealthCenterTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luHealthCenterTypes] WHERE [HealthCenterTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>HealthCenterTypeID</HiddenColumns>
+    <NonEditableColumns>HealthCenterTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Health Group Types</ListName>
+    <ListDescription>List of Health Group Types</ListDescription>
+    <SelectQuery>SELECT [HealthGroupTypeID], [Description] FROM [luHealthGroupTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luHealthGroupTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luHealthGroupTypes] SET [Description]=%3% WHERE [HealthGroupTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luHealthGroupTypes] WHERE [HealthGroupTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>HealthGroupTypeID</HiddenColumns>
+    <NonEditableColumns>HealthGroupTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Medical Aid Types</ListName>
+    <ListDescription>List of Medical Aid Types</ListDescription>
+    <SelectQuery>SELECT [MedicalAidTypeID], [Description] FROM [luMedicalAidTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luMedicalAidTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luMedicalAidTypes] SET [Description]=%3% WHERE [MedicalAidTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luMedicalAidTypes] WHERE [MedicalAidTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>MedicalAidTypeID</HiddenColumns>
+    <NonEditableColumns>MedicalAidTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Religions</ListName>
+    <ListDescription>List of Religions</ListDescription>
+    <SelectQuery>SELECT [ReligionID], [Description] FROM [luReligion]</SelectQuery>
+    <InsertQuery>INSERT INTO [luReligion] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luReligion] SET [Description]=%3% WHERE [ReligionID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luReligion] WHERE [ReligionID]=%2%</DeleteQuery>
+    <HiddenColumns>ReligionID</HiddenColumns>
+    <NonEditableColumns>ReligionID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>School Types</ListName>
+    <ListDescription>List of School Types</ListDescription>
+    <SelectQuery>SELECT [SchoolTypeID], [Description] FROM [luSchoolTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luSchoolTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luSchoolTypes] SET [Description]=%3% WHERE [SchoolTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luSchoolTypes] WHERE [SchoolTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>SchoolTypeID</HiddenColumns>
+    <NonEditableColumns>SchoolTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Professions</ListName>
+    <ListDescription>List of Professions</ListDescription>
+    <SelectQuery>SELECT [ProfessionID], [Description] FROM [luProfession]</SelectQuery>
+    <InsertQuery>INSERT INTO [luProfession] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luProfession] SET [Description]=%3% WHERE [ProfessionID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luProfession] WHERE [ProfessionID]=%2%</DeleteQuery>
+    <HiddenColumns>ProfessionID</HiddenColumns>
+    <NonEditableColumns>ProfessionID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Relationships</ListName>
+    <ListDescription>List of Relationships</ListDescription>
+    <SelectQuery>SELECT [RelationshipID], [Description] FROM [luRelationships]</SelectQuery>
+    <InsertQuery>INSERT INTO [luRelationships] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luRelationships] SET [Description]=%3% WHERE [RelationshipID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luRelationships] WHERE [RelationshipID]=%2%</DeleteQuery>
+    <HiddenColumns>RelationshipID</HiddenColumns>
+    <NonEditableColumns>RelationshipID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Follow-Up Types</ListName>
+    <ListDescription>List of Follow-Up Types</ListDescription>
+    <SelectQuery>SELECT [FollowupTypeID], [Description] FROM [luFollowupTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luFollowupTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luFollowupTypes] SET [Description]=%3% WHERE [FollowupTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luFollowupTypes] WHERE [FollowupTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>FollowupTypeID</HiddenColumns>
+    <NonEditableColumns>FollowupTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Contact Types</ListName>
+    <ListDescription>List of Contact Types</ListDescription>
+    <SelectQuery>SELECT [ContactTypeID], [Description] FROM [luContactTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luContactTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luContactTypes] SET [Description]=%3% WHERE [ContactTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luContactTypes] WHERE [ContactTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>ContactTypeID</HiddenColumns>
+    <NonEditableColumns>ContactTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Need Category</ListName>
+    <ListDescription>List Need Categories</ListDescription>
+    <SelectQuery>SELECT [NeedCategoryID], [Description] FROM [luNeedCategory]</SelectQuery>
+    <InsertQuery>INSERT INTO [luNeedCategory] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luNeedCategory] SET [Description]=%3% WHERE [NeedCategoryID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luNeedCategory] WHERE [NeedCategoryID]=%2%</DeleteQuery>
+    <HiddenColumns>NeedCategoryID</HiddenColumns>
+    <NonEditableColumns>NeedCategoryID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Need-Action</ListName>
+    <ListDescription>List Need-Actions</ListDescription>
+    <SelectQuery>SELECT [NeedActionID], [Description] FROM [luNeedAction]</SelectQuery>
+    <InsertQuery>INSERT INTO [luNeedAction] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luNeedAction] SET [Description]=%3% WHERE [NeedActionID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luNeedAction] WHERE [NeedActionID]=%2%</DeleteQuery>
+    <HiddenColumns>NeedActionID</HiddenColumns>
+    <NonEditableColumns>NeedActionID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Training Types</ListName>
+    <ListDescription>List of Types of Training</ListDescription>
+    <SelectQuery>SELECT [TrainingTypeID], [Description] FROM [luTrainingTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luTrainingTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luTrainingTypes] SET [Description]=%3% WHERE [TrainingTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luTrainingTypes] WHERE [TrainingTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>TrainingTypeID</HiddenColumns>
+    <NonEditableColumns>TrainingTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Contact Types</ListName>
+    <ListDescription>List of Types of Contacts</ListDescription>
+    <SelectQuery>SELECT [ContactTypeID], [Description] FROM [luContactTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luContactTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luContactTypes] SET [Description]=%3% WHERE [ContactTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luContactTypes] WHERE [ContactTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>ContactTypeID</HiddenColumns>
+    <NonEditableColumns>ContactTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Group Types</ListName>
+    <ListDescription>List of Types of Groups</ListDescription>
+    <SelectQuery>SELECT [GroupTypeID], [Description] FROM [luGroupTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luGroupTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luGroupTypes] SET [Description]=%3% WHERE [GroupTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luGroupTypes] WHERE [GroupTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>GroupTypeID</HiddenColumns>
+    <NonEditableColumns>GroupTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Patient Need Category</ListName>
+    <ListDescription>List of Patient Need Categories</ListDescription>
+    <SelectQuery>SELECT [NeedCategoryID], [Description] FROM [luNeedCategory]</SelectQuery>
+    <InsertQuery>INSERT INTO [luNeedCategory] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luNeedCategory] SET [Description]=%3% WHERE [NeedCategoryID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luNeedCategory] WHERE [NeedCategoryID]=%2%</DeleteQuery>
+    <HiddenColumns>NeedCategoryID</HiddenColumns>
+    <NonEditableColumns>NeedCategoryID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Patient Needs and Required Services</ListName>
+    <ListDescription>List of Patient Needs and Required Services</ListDescription>
+    <SelectQuery>SELECT [NeedServiceID],[NeedCategoryID], [Description] FROM [luNeedServices]</SelectQuery>
+    <InsertQuery>INSERT INTO [luNeedServices] ([NeedCategoryID], [Description]) VALUES (%3%,%4%)</InsertQuery>
+    <UpdateQuery>UPDATE [luNeedServices] SET [Description]=%3%, [NeedCategoryID] = %4% WHERE [NeedServiceID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luNeedServices] WHERE [NeedServiceID]=%2%</DeleteQuery>
+    <HiddenColumns>NeedServiceID</HiddenColumns>
+    <NonEditableColumns>NeedServiceID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Training Periods</ListName>
+    <ListDescription>List of Training Periods</ListDescription>
+    <SelectQuery>SELECT [PeriodID], [Description] FROM [luPeriod]</SelectQuery>
+    <InsertQuery>INSERT INTO [luPeriod] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luPeriod] SET [Description]=%3% WHERE [PeriodID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luPeriod] WHERE [PeriodID]=%2%</DeleteQuery>
+    <HiddenColumns>PeriodID</HiddenColumns>
+    <NonEditableColumns>PeriodID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Departments</ListName>
+    <ListDescription>List of Departments</ListDescription>
+    <SelectQuery>SELECT [DepartmentID], [Description] FROM [luDepartments]</SelectQuery>
+    <InsertQuery>INSERT INTO [luDepartments] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luDepartments] SET [Description]=%3% WHERE [DepartmentID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luDepartments] WHERE [DepartmentID]=%2%</DeleteQuery>
+    <HiddenColumns>DepartmentID</HiddenColumns>
+    <NonEditableColumns>DepartmentID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+<LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Training Exam Papers</ListName>
+    <ListDescription>List of Training Exam Papers</ListDescription>
+    <SelectQuery>SELECT [PaperID], [Description] FROM [luPaper]</SelectQuery>
+    <InsertQuery>INSERT INTO [luPaper] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luPaper] SET [Description]=%3% WHERE [PaperID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luPaper] WHERE [PaperID]=%2%</DeleteQuery>
+    <HiddenColumns>PaperID</HiddenColumns>
+    <NonEditableColumns>PaperID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+
+<LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Years</ListName>
+    <ListDescription>List of Years</ListDescription>
+    <SelectQuery>SELECT [YearID], [Description] FROM [luYear]</SelectQuery>
+    <InsertQuery>INSERT INTO [luYear] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luYear] SET [Description]=%3% WHERE [YearID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luYear] WHERE [YearID]=%2%</DeleteQuery>
+    <HiddenColumns>YearID</HiddenColumns>
+    <NonEditableColumns>YearID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+<LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Years</ListName>
+    <ListDescription>List of Years</ListDescription>
+    <SelectQuery>SELECT [YearID], [Description] FROM [luYear]</SelectQuery>
+    <InsertQuery>INSERT INTO [luYear] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luYear] SET [Description]=%3% WHERE [YearID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luYear] WHERE [YearID]=%2%</DeleteQuery>
+    <HiddenColumns>YearID</HiddenColumns>
+    <NonEditableColumns>YearID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Actions on Patient Needs</ListName>
+    <ListDescription>List of Actions on Patient Needs</ListDescription>
+    <SelectQuery>SELECT [NeedActionID], [NeedServiceID], [Description] FROM [luNeedAction]</SelectQuery>
+    <InsertQuery>INSERT INTO [luNeedAction] ([NeedServiceID], [Description]) VALUES (%3%,%4%)</InsertQuery>
+    <UpdateQuery>UPDATE [luNeedAction] SET [Description]=%3%, [NeedActionID] = %4% WHERE [NeedCategoryID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luNeedAction] WHERE [NeedActionID]=%2%</DeleteQuery>
+    <HiddenColumns>NeedActionID</HiddenColumns>
+    <NonEditableColumns>NeedActionID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+  <LookupList>
+    <Display>1</Display>
+    <Editable>1</Editable>
+    <ListName>Organization Types</ListName>
+    <ListDescription>List of Types of Organizations</ListDescription>
+    <SelectQuery>SELECT [OrganizationTypeID], [Description] FROM [luOrganizationTypes]</SelectQuery>
+    <InsertQuery>INSERT INTO [luOrganizationTypes] ([Description]) VALUES (%3%)</InsertQuery>
+    <UpdateQuery>UPDATE [luOrganizationTypes] SET [Description]=%3% WHERE [OrganizationTypeID]=%2%</UpdateQuery>
+    <DeleteQuery>DELETE FROM [luOrganizationTypes] WHERE [OrganizationTypeID]=%2%</DeleteQuery>
+    <HiddenColumns>OrganizationTypeID</HiddenColumns>
+    <NonEditableColumns>OrganizationTypeID</NonEditableColumns>
+    <RequiredFields></RequiredFields>
+    <Filter>0</Filter>
+    <PermissionID>0</PermissionID>
+    <DeleteAllowed>1</DeleteAllowed>
+  </LookupList>
+</LookupListCollection>

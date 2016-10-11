@@ -1,0 +1,123 @@
+/*
+
+Original Author: Tomas Lach (www.tomaslach.cz)
+Heavily Modified by OS Templates (http://www.os-templates.com)
+
+Changing colours is now simple, now uses @import to import the individual CSS colour scheme instead of having to use multiple templates
+The template now gracefully degrades for older browsers - IE 7 + 8 are now also partially supported
+
+Template re-named to: Continents AIO (All In One)
+
+*/
+
+/*******************************************************************************************************************
+*  IMPORT OTHER STYLES                                                                                             
+*******************************************************************************************************************/
+@import url(reset.css); 
+/* 
+Choose the colour you wish to use => colour-azure.css is default
+@import url(colour-azure.css);
+@import url(colour-black.css);
+@import url(colour-blue.css);
+@import url(colour-green.css);
+@import url(colour-orange.css);
+@import url(colour-purple.css);
+*/
+@import url(colour-blue.css);
+
+.clearFix:after{content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.clearFix{display:inline-block;}
+/* hidden for ie mac \*/
+* html .clearFix{height:1%;}
+.clearFix{display:block;}
+/*******************************************************************************************************************/
+
+/*******************************************************************************************************************
+*  HEADER                                                                                                          
+*******************************************************************************************************************/
+header{height:84px; line-height:84px; background:#1a1a1a;padding-top:0%}
+header a#logo{font-size:1.2em; font-weight:bold; display:block; position:absolute; top:0; left:20px; color:#fff; text-transform:uppercase; text-decoration:none;}
+header a#logo:hover{text-decoration:none; color:#f7f7f7;}
+header #nav{position:absolute; top:0; right:0;}
+header #nav > strong{display:none;}
+header #nav > ul > li{float:left; background:url("img/nav-sep.png") no-repeat 0 50%; position:relative;}
+header #nav > ul > li.parent > a{background:url("img/nav-more.png") no-repeat 20px 50%; padding-left:40px;}
+header #nav > ul > li > ul{display:none; min-width:100%; position:absolute; top:62px; left:20px; line-height:normal; white-space:nowrap;}
+header #nav > ul > li > ul > li{margin-bottom:1px;}
+header #nav > ul > li > ul > li > a{color:#c3c3c3; text-decoration:none; padding:10px 20px; display:block; background:url("img/subnav-bg.png");}
+header #nav > ul > li > ul > li > a:hover{background:#000; color:#fff; text-decoration:none;}
+header #nav > ul > li:first-child{background:none;}
+header #nav > ul > li > a{float:left; color:#a2a2a2; display:block; height:84px; text-transform:uppercase; text-decoration:none; font-weight:bold; padding:0 20px; -webkit-transition:all 0.3s ease-in-out; -moz-transition:all 0.3s ease-in-out; -o-transition:all 0.3s ease-in-out; -ms-transition:all 0.3s ease-in-out; transition:all 0.3s ease-in-out;}
+header #nav > ul > li.active > a{cursor:pointer; text-decoration:none;}
+header #nav > ul > li > a:hover{color:#fff; text-decoration:none;}
+
+#intro{border-bottom:1px solid #fff; position:relative; z-index:90;}
+#intro .inner{padding:55px 0;}
+#intro p{color:#fff; margin-bottom:20px; padding-right:20%;}
+#intro .button{text-shadow:-1px -1px 0 #ff6d00; text-transform:none; border:0; font-size:13px; background-color:#ff9a01; border-radius:5px; color:#fff; display:inline-block; padding:15px 40px; text-decoration:none; box-shadow:0 2px 2px #2596b7;  border-top:1px solid #ffe702; background:-moz-linear-gradient(top, #ffc101 0%, #ff9a01); background:-webkit-gradient(linear, left top, left bottom, from(#ffc101), to(#ff9a01));}
+#intro .button:hover{background:-moz-linear-gradient(top, #ff9a01 0%, #ffc101); background:-webkit-gradient(linear, left top, left bottom, from(#ff9a01), to(#ffc101));}
+#intro .button span{color:#b1b1b1; font-weight:100;}
+
+/*******************************************************************************************************************
+*  CONTENT                                                                                                         
+*******************************************************************************************************************/
+
+/*******************************************************************************************************************
+*  TWITTER                                                                                                          
+*******************************************************************************************************************/
+#twitter{background:#fff; border-top:1px solid #e5e5e5;}
+#twitter .wrap{padding-top:20px; padding-bottom:5px; position:relative;}
+#twitter p{padding-left:80px;}
+#twitter .icon{display:block; position:absolute; top:-20px; left:20px; width:56px; height:61px; background:url("img/twitter.png") no-repeat;}
+
+/*******************************************************************************************************************
+*  FOOTER                                                                                                          
+*******************************************************************************************************************/
+footer{padding:30px 0; background:#1a1a1a; font-size:0.85em; color:#777;}
+footer p{line-height:1.9em;}
+footer a, footer a:link, footer a:focus{color:#999; -webkit-transition:all 0.3s ease-in-out; -moz-transition:all 0.3s ease-in-out; -o-transition:all 0.3s ease-in-out; -ms-transition:all 0.3s ease-in-out; transition:all 0.3s ease-in-out;}
+footer a:hover{color:#fff;}
+footer .socialIcons{padding-top:7px;}
+footer .socialIcons a{display:inline-block; width:29px; height:29px; margin:0 10px 0 0; text-indent:-9999px;}
+footer .socialIcons a:last-child{margin-right:0;}
+footer .socialIcons a.rss{background:url("img/small-rss.png") no-repeat;}
+footer .socialIcons a.facebook{background:url("img/small-facebook.png") no-repeat;}
+footer .socialIcons a.twitter{background:url("img/small-twitter.png") no-repeat;}
+
+/*******************************************************************************************************************
+*  OTHER STYLES                                                                                                    
+*******************************************************************************************************************/
+.wrap{margin:0 auto; position:relative; max-width:940px; padding:0 20px;}
+
+/*******************************************************************************************************************
+*  Responsive design                                                                                                    
+*******************************************************************************************************************/
+@media (max-width: 975px) {
+	.wrap{max-width:auto; margin:0;}
+}
+
+@media (max-width: 750px) { 
+	header nav li a{font-size:11px; padding:0;}
+}
+
+@media (max-width: 580px) { 
+	header{height:50px; line-height:50px;}
+	header a#logo{left:20px;}
+	header #nav{right:20px;}
+	header #nav > strong{display:block; float:right; cursor:pointer;}
+	header #nav > strong:hover{color:#fff;}
+	header #nav > ul{display:none; position:absolute; left:auto; right:0; top:80%; line-height:normal; white-space:nowrap;}
+	header #nav > ul > li, header #nav > ul > li > ul > li{float:none; margin-bottom:1px; position:relative; background:none !important;}
+	header #nav > ul > li > ul{margin-top:1px; position:relative !important; display:block !important; top:0 !important; width:100% !important;}
+	header #nav > ul > li > a, header #nav > ul > li.parent > a{color:#c3c3c3; text-decoration:none; padding:10px 20px !important; height:auto; float:none !important; width:100%; display:block; background:url("img/subnav-bg.png"); -webkit-transition:all 0s ease-in-out; -moz-transition:all 0s ease-in-out; -o-transition:all 0s ease-in-out; -ms-transition:all 0s ease-in-out; transition:all 0s ease-in-out;}
+	header #nav > ul > li > a:hover{background:#000; color:#fff; text-decoration:none;}
+	header #nav > ul > li > ul > li > a{background:url("img/subnav-bg.png");}
+	footer p.floatLeft, footer p.floatRight{display:block; width:100%; float:none; margin-bottom:20px;}
+	footer p:last-child{margin-bottom:0;}
+	.buttonCentered{position:relative; top:-15px;}
+}
+
+/* iPhone4 */
+@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
+	html{width:100%;}
+}

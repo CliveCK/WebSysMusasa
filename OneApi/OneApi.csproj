@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BB105549-1799-4601-9D24-652773A187F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OneApi</RootNamespace>
+    <AssemblyName>OneApi</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\OneApi\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="log4net">
+      <HintPath>..\References\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\References\RestSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client\HLRClient.cs" />
+    <Compile Include="Client\CustomerProfileClient.cs" />
+    <Compile Include="Client\Impl\CustomerProfileClientImpl.cs" />
+    <Compile Include="Client\Impl\HLRClientImpl.cs" />
+    <Compile Include="Client\Impl\NetworksClientImpl.cs" />
+    <Compile Include="Client\Impl\OneAPIBaseClientImpl.cs" />
+    <Compile Include="Client\Impl\SMSClient.cs" />
+    <Compile Include="Client\Impl\SMSMessagingClientImpl.cs" />
+    <Compile Include="Client\Impl\USSDClientImpl.cs" />
+    <Compile Include="Client\NetworksClient.cs" />
+    <Compile Include="Client\SMSMessagingClient.cs" />
+    <Compile Include="Client\USSDClient.cs" />
+    <Compile Include="Config\Configuration.cs" />
+    <Compile Include="Converter\LanguageCodeConverter.cs" />
+    <Compile Include="Converter\RestSharpJsonNetSerializer.cs" />
+    <Compile Include="Exceptions\ConfigurationException.cs" />
+    <Compile Include="Exceptions\RequestException.cs" />
+    <Compile Include="Listeners\InboundMessageNotificationsListener.cs" />
+    <Compile Include="Listeners\HLRNotificationsListener.cs" />
+    <Compile Include="Listeners\DeliveryReportListener.cs" />
+    <Compile Include="Listeners\DeliveryStatusNotificationsListener.cs" />
+    <Compile Include="Listeners\InboundMessageListener.cs" />
+    <Compile Include="Model\AccountBalance.cs" />
+    <Compile Include="Model\AddClientFundsRequest.cs" />
+    <Compile Include="Model\AddClientFundsResponse.cs" />
+    <Compile Include="Model\Authentication.cs" />
+    <Compile Include="Converter\CustomDateConverter.cs" />
+    <Compile Include="Model\Country.cs" />
+    <Compile Include="Model\CustomerProfileList.cs" />
+    <Compile Include="Model\DeliveryStatus.cs" />
+    <Compile Include="Model\MessageStatus.cs" />
+    <Compile Include="Model\Network.cs" />
+    <Compile Include="Model\NumberInfo.cs" />
+    <Compile Include="Model\SendMessageResultItem.cs" />
+    <Compile Include="Model\SendMessageResult.cs" />
+    <Compile Include="Model\StringEnum.cs" />
+    <Compile Include="Model\USSDRequest.cs" />
+    <Compile Include="Model\DeliveryReportList.cs" />
+    <Compile Include="Model\Currency.cs" />
+    <Compile Include="Model\CustomerProfile.cs" />
+    <Compile Include="Model\LoginResponse.cs" />
+    <Compile Include="Model\RequestData.cs" />
+    <Compile Include="Model\RoamingNotification.cs" />
+    <Compile Include="Model\DeliveryInfoList.cs" />
+    <Compile Include="Model\DeliveryInfoNotification.cs" />
+    <Compile Include="Model\DeliveryReceiptSubscription.cs" />
+    <Compile Include="Model\DeliveryReport.cs" />
+    <Compile Include="Model\DeliveryReportSubscription.cs" />
+    <Compile Include="Model\HlrResponseData.cs" />
+    <Compile Include="Model\InboundSMSMessage.cs" />
+    <Compile Include="Model\InboundSMSMessageList.cs" />
+    <Compile Include="Model\MoSubscription.cs" />
+    <Compile Include="Model\PolicyException.cs" />
+    <Compile Include="Model\RequestError.cs" />
+    <Compile Include="Model\ResourceReference.cs" />
+    <Compile Include="Model\Roaming.cs" />
+    <Compile Include="Model\ServiceException.cs" />
+    <Compile Include="Model\SMSRequest.cs" />
+    <Compile Include="Model\SubscribeToDeliveryNotificationsRequest.cs" />
+    <Compile Include="Model\SubscribeToHLRDeliveryNotificationsRequest.cs" />
+    <Compile Include="Model\SubscribeToInboundMessagesRequest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushServer\PushServerSimulator.cs" />
+    <Compile Include="Retrievers\DeliveryReportRetriever.cs" />
+    <Compile Include="Retrievers\InboundMessageRetriever.cs" />
+    <Compile Include="Model\Language.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Etc\client.cfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\LoginRequest.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy “$(ProjectDir)\Etc” “$(TargetDir)”</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

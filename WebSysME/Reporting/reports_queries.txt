@@ -1,0 +1,35 @@
+
+Trainings List
+
+SELECT     luDistrict.Description, tblTrainingDetails.Location, tblTrainingDetails.TrainingDate, tblTrainingDetails.Topic, tblTrainingDetails.Facilitator, COUNT(tblTraineeDetails.TraineeID) AS [# of Trainees]
+FROM         luDistrict INNER JOIN
+                      tblTrainingDetails ON luDistrict.DistrictID = tblTrainingDetails.DistrictID INNER JOIN
+                      tblTraineeDetails ON tblTrainingDetails.TrainingDetailID = tblTraineeDetails.TrainingID
+GROUP BY luDistrict.Description, tblTrainingDetails.Location, tblTrainingDetails.TrainingDate, tblTrainingDetails.Topic, tblTrainingDetails.Facilitator
+
+
+
+Trainees List
+
+SELECT     luDistrict.Description AS District, tblTrainingDetails.Location, tblTrainingDetails.TrainingDate, tblTrainingDetails.Topic, tblTrainingDetails.Facilitator, tblTraineeDetails.TargetGroup, 
+                      tblTraineeDetails.TraineeName, tblTraineeDetails.IDNumber, tblTraineeDetails.Gender, datediff(yyyy, tblTraineeDetails.DOB, getdate()) AS Age, tblTraineeDetails.Contact
+FROM         luDistrict INNER JOIN
+                      tblTrainingDetails ON luDistrict.DistrictID = tblTrainingDetails.DistrictID INNER JOIN
+                      tblTraineeDetails ON tblTrainingDetails.TrainingDetailID = tblTraineeDetails.TrainingID
+
+Training Material and Activity Costs - Itemized
+
+SELECT     luDistrict.Description AS District, tblTrainingDetails.Location, tblTrainingDetails.TrainingDate, tblTrainingDetails.Topic, tblTrainingDetails.Facilitator, tblMaterialsUsed.Description, 
+                      tblMaterialsUsed.Unit, tblMaterialsUsed.Quantity, tblMaterialsUsed.Cost
+FROM         luDistrict INNER JOIN
+                      tblTrainingDetails ON luDistrict.DistrictID = tblTrainingDetails.DistrictID INNER JOIN
+                      tblMaterialsUsed ON tblTrainingDetails.TrainingDetailID = tblMaterialsUsed.TrainingDetailID
+
+
+
+
+
+
+
+
+

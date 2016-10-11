@@ -1,0 +1,87 @@
+body {
+    font-family: "Segoe UI Web Regular","Segoe UI","Helvetica Neue",Arial;
+    font-size: 11px;
+    font-weight: 100;
+    line-height: 16px;
+    margin: 0;
+}
+
+.PageHeader, .PageHeader span {
+    background-color: #0072C6;
+    background-image: none;
+    color: #FFF;
+    font-family: "Segoe UI Web Light","Segoe UI Light","Segoe UI Web Regular","Segoe UI","Helvetica Neue",Arial!important;
+    font-size: 16px!important;
+    font-weight: 100!important;
+    padding: 6px;
+    vertical-align: middle;
+}
+
+    .PageHeader img, span label {
+        vertical-align: middle;
+    }
+
+.PageHeader2 {
+    background-color: #CCC;
+    background-image: none;
+    border-bottom: 1px solid #696969;
+    border-top: 1px solid #696969;
+}
+
+.PageHeader3 {
+    background-color: #DCDCDC;
+    background-image: none;
+    border-bottom: 1px solid #696969;
+    border-top: 1px solid #696969;
+}
+
+.HiddenControl {
+    display: none;
+    height: 0;
+    visibility: hidden;
+    width: 0;
+}
+
+input:hover, input:active {
+    background-color: #ff9;
+    background-image: none;
+    border-style: 1 solid;
+}
+
+/* message boxes - start */
+.alert-box {
+    border-radius: 5px;
+    color: #555;
+    margin: 5px;
+    padding: 5px 5px 5px 36px;
+}
+
+.alert-box span {
+    /*font-weight: bold;
+    text-transform: uppercase;*/
+}
+
+.msg_error {
+    background: #ffecec url('../images/icons/msg/error.png') no-repeat 10px 50%;
+    border: 1px solid #f5aca6;
+}
+
+.msg_success {
+    background: #e9ffd9 url('../images/icons/msg/success.png') no-repeat 10px 50%;
+    border: 1px solid #a6ca8a;
+}
+
+.msg_warning {
+    background: #fff8c4 url('../images/icons/msg/warning.png') no-repeat 10px 50%;
+    border: 1px solid #f2c779;
+}
+
+.msg_notice {
+    background: #e3f7fc url('../images/icons/msg/notice.png') no-repeat 10px 50%;
+    border: 1px solid #8ed9f6;
+}
+/* message boxes - end */
+
+input.button, input.buttonclose, input.buttonover, input.buttonhover, input.lubutton, input.lubuttonhover, input.button2, input.buttonbright, input.buttonbrighthover, input.button2hover {
+    cursor: pointer;
+}

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="YAMessaging.DAL.Functions">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Functions.cs</FileName>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAUAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YAMessaging.DAL.MessageDb">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>MessageDb.cs</FileName>
+      <HashCode>AAAACAAAAIIAAAAAACAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="YAMessaging.DAL.UserDb">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>UserDb.cs</FileName>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAQAAAAAgAAAAAAAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+</ClassDiagram>
