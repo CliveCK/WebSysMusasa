@@ -75,7 +75,82 @@
         </tr>
         <tr>
             <td>Nature of Relationship</td><td><asp:textbox id="txtNatureOfRelationShip" runat="server" CssClass="form-control"></asp:textbox></td>
+        </tr>
+         <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><h4>Accompanying Children</h4></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>            
             <td>Accompanying Children</td><td><asp:textbox id="txtAccompanyingChn" runat="server" CssClass="form-control" TextMode="Number"></asp:textbox></td>
+        </tr>
+        <tr>
+            <td>FirstName:<asp:TextBox ID="txtAccFirstName" runat="server" CssClass="form-control"></asp:TextBox></td>
+            <td>Surname:<asp:TextBox ID="txtAccSurname" runat="server" CssClass="form-control"></asp:TextBox></td>
+            <td>Sex:<asp:DropDownList ID="cboSexA" runat="server" CssClass="form-control">
+                                <asp:ListItem Text ="--Select--" Value=""></asp:ListItem>
+                                 <asp:ListItem Text ="Male" Value="Male"></asp:ListItem>
+                                 <asp:ListItem Text="Female" Value="Female"></asp:ListItem>
+                            </asp:DropDownList></td>
+            <td>Age:<asp:TextBox ID="txtAge" runat="server" CssClass="form-control"></asp:TextBox></td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Button ID="cmdAdd" runat="server" Text="Add" CssClass="btn btn-default" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                 <telerik:RadGrid ID="radAccChildren" runat="server" GridLines="None" Height="100%" 
+                    AllowFilteringByColumn="True" CellPadding="0" Width="90%">
+                    <MasterTableView AutoGenerateColumns="False" AllowPaging="True"  PagerStyle-Mode="NextPrevNumericAndAdvanced"
+                        AlternatingItemStyle-BackColor="#66ccff">
+                        <CommandItemSettings ExportToPdfText="Export to Pdf"></CommandItemSettings>
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="AccompanyingChildrenID" UniqueName="AccompanyingChildrenID" HeaderText="AccompanyingChildrenID"
+                                Display="false">
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="FirstName" UniqueName="FirstName" HeaderText="FirstName">
+                            </telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn DataField="Surname" UniqueName="Surname" HeaderText="Surname">
+                            </telerik:GridBoundColumn> 
+                             <telerik:GridBoundColumn DataField="Sex" UniqueName="Sex" HeaderText="Sex">
+                            </telerik:GridBoundColumn>   
+                              <telerik:GridBoundColumn DataField="Age" UniqueName="Age" HeaderText="Age">
+                            </telerik:GridBoundColumn> 
+                            <telerik:GridTemplateColumn UniqueName="Delete">
+                            <ItemTemplate>
+                                <asp:ImageButton ID="imgEdit" runat="server" AlternateText="Cancel" CausesValidation="False" 
+                                    CommandArgument='<%# DataBinder.Eval(Container.DataItem, "AccompanyingChildrenID")%>'
+                                    CommandName="Delete" ImageUrl="~/images/Delete.png" OnClientClick="javascript:return confirm('Are you sure you want to remove from Training?')"
+                                    ToolTip="Click to remove " />
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>                
+                        </Columns>
+                        <RowIndicatorColumn>
+                            <HeaderStyle Width="20px"></HeaderStyle>
+                        </RowIndicatorColumn>
+                        <ExpandCollapseColumn>
+                            <HeaderStyle Width="20px"></HeaderStyle>
+                        </ExpandCollapseColumn>
+                        <EditFormSettings>
+                            <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                            </EditColumn>
+                        </EditFormSettings>
+                    </MasterTableView>
+                    <ClientSettings EnablePostBackOnRowClick="false">
+                    </ClientSettings>
+                    <FilterMenu EnableImageSprites="False">
+                    </FilterMenu>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+          <tr>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td>Accompanying Adult 1</td><td><asp:dropdownlist id="cboAccompanynAdult1" runat="server"  CssClass="form-control">
@@ -88,7 +163,7 @@
             <asp:ListItem Text="Male" Value="Male"></asp:ListItem>
             <asp:ListItem Text="Female" Value="Female"></asp:ListItem>
                                   </asp:dropdownlist></td>
-        </tr>
+        </tr>       
         <tr>
             <td>Referred By</td><td><asp:textbox id="txtReferredBy" runat="server" CssClass="form-control"></asp:textbox></td>
             <td></td><td></td>

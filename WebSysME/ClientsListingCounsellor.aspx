@@ -2,10 +2,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <table style="width:100%;margin-left:2%">
         <tr><td><asp:Button runat="server" ID="cmdNew" Text="Add New" CssClass="btn btn-default"/>
-            <asp:Button runat="server" ID="cmdInitSession" Text="Initial Session" CssClass="btn btn-default"/>
+            <asp:Button runat="server" ID="cmdInitSession" Text="Initial Session" CssClass="HiddenControl"/>
             </td>
-            <td><asp:Button runat="server" ID="cmdReturningClients" Text="Returning Clients" CssClass="btn btn-default"/></td>
-            <td><asp:Button runat="server" ID="cmdServedClients" Text="Served Clients" CssClass="btn btn-default"/></td>
+            <td><asp:Button runat="server" ID="cmdReturningClients" Text="Returning Clients" CssClass="HiddenControl"/></td>
+            <td><asp:Button runat="server" ID="cmdServedClients" Text="Served Clients" CssClass="HiddenControl"/></td>
         </tr>
         <tr><td></td></tr>
         <tr><td colspan="3">

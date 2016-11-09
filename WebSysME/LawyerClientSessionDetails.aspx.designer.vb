@@ -77,15 +77,6 @@ Partial Public Class LawyerClientSessionDetails
     Protected WithEvents radProblems As Global.Telerik.Web.UI.RadGrid
     
     '''<summary>
-    '''radSessionDate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents radSessionDate As Global.Telerik.Web.UI.RadDatePicker
-    
-    '''<summary>
     '''txtOtherProblem control.
     '''</summary>
     '''<remarks>
@@ -93,6 +84,15 @@ Partial Public Class LawyerClientSessionDetails
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtOtherProblem As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''radSessionDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents radSessionDate As Global.Telerik.Web.UI.RadDatePicker
     
     '''<summary>
     '''txtCaseNotes control.
@@ -156,4 +156,13 @@ Partial Public Class LawyerClientSessionDetails
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtBeneficiaryID As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''lDetails control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lDetails As Global.System.Web.UI.WebControls.LinkButton
 End Class

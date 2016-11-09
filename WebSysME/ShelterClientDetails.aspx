@@ -35,7 +35,7 @@
             <td>Contact Number</td><td><asp:textbox id="txtClientContactNumber" runat="server" CssClass="form-control"></asp:textbox></td>
         </tr>
          <tr>
-            <td>District</td><td><asp:dropdownlist id="cboDistricts" runat="server" CssClass="form-control" AutoPostBack="true">
+            <td>District of Residence</td><td><asp:dropdownlist id="cboDistricts" runat="server" CssClass="form-control" AutoPostBack="true">
                                   </asp:dropdownlist></td>
             <td>Ward/Village</td><td><asp:dropdownlist id="cboWards" runat="server" CssClass="form-control">
                                   </asp:dropdownlist></td>
@@ -131,6 +131,35 @@
         </tr>
         <tr>
             <td>Presenting Problem</td><td><asp:textbox id="txtPresentingProblem" runat="server" CssClass="form-control"></asp:textbox></td>
+        </tr>
+        <tr>
+            <td>Have you been tested for HIV?</td> 
+            <td><asp:CheckBox ID="chkTestedForHIV" runat="server" /></td>
+        </tr>
+        <tr>
+            <td>If yes, would you like to Diclose your Status?</td> 
+            <td><asp:CheckBox ID="chkDiscloseStatus" runat="server" /></td>
+        </tr>
+        <tr>
+            <td>If yes, your HIV Status</td>
+            <td><asp:DropDownList ID="cboHIVStatus" runat="server" CssClass="form-control" >
+                    <asp:ListItem Text="Undisclosed" Value="Undisclosed"></asp:ListItem>
+                    <asp:ListItem Text="Positive" Value="Positive"></asp:ListItem>
+                     <asp:ListItem Text="Negative" Value="Negative"></asp:ListItem>
+                </asp:DropDownList></td>
+        </tr>
+        <tr>
+            <td>Are you on ART</td>
+            <td><asp:DropDownList ID="cboOnArt" runat="server" CssClass="form-control" >
+                    <asp:ListItem Text="--Select--" Value=""></asp:ListItem>
+                    <asp:ListItem Text="YES" Value="YES"></asp:ListItem>
+                     <asp:ListItem Text="NO" Value="NO"></asp:ListItem>                
+                     <asp:ListItem Text="Don't Know" Value="Don't Know"></asp:ListItem>
+                </asp:DropDownList></td>
+        </tr>        
+        <tr>
+            <td>Referred To</td>
+            <td><asp:DropDownList ID="cboReferredTo" runat="server" CssClass="form-control" ></asp:DropDownList></td>
         </tr>
         <tr>
             <td colspan="4"></td>

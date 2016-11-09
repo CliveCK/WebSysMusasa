@@ -237,6 +237,19 @@ End Sub
 
     End Function
 
+    Public Overridable Function GetCBSMemberNeedsByBeneficiaryID(ByVal BeneficiaryID As Long) As DataSet
+
+        Dim sql As String
+
+        sql = "SELECT *, A.Description As AssistanceProvided, NP.Description As Problem, R.Description As ReferredTo, Comments FROM tblCBSMemberNeeds P left outer join "
+        sql &= "luAssistenceAndServicesProvided A on A.AssistenceAndServicesID = P.AssistanceID "
+        sql &= "left outer join luNatureOfProblems NP on NP.NatureOfProblemID = P.NeedID "
+        sql &= "Left outer join luReferralCentreTypes R on R.ReferralCentreTypeID = ReferredToID WHERE BeneficiaryID = " & BeneficiaryID
+
+        Return GetCBSMemberNeeds(sql)
+
+    End Function
+
     Protected Overridable Function GetCBSMemberNeeds(ByVal sql As String) As DataSet
 
         Return db.ExecuteDataSet(CommandType.Text, sql)
@@ -311,7 +324,7 @@ End Sub
 
     Public Overridable Function Delete() As Boolean
 
-        'Return Delete("UPDATE tblCBSMemberNeeds SET Deleted = 1 WHERE CBSMemberNeedID = " & mCBSMemberNeedID) 
+        'Return Delete("UPDATE tblCBSMemberNeeds Set Deleted = 1 WHERE CBSMemberNeedID = " & mCBSMemberNeedID) 
         Return Delete("DELETE FROM tblCBSMemberNeeds WHERE CBSMemberNeedID = " & mCBSMemberNeedID)
 
     End Function

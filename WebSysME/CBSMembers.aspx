@@ -33,7 +33,8 @@
     <telerik:RadGrid ID="radCBS" runat="server" Height="80%" 
                     CellPadding="0" Width="90%" AutoGenerateColumns="False">
                     <MasterTableView AllowFilteringByColumn="True" AllowPaging="True" 
-                       AllowMultiColumnSorting="true" AllowSorting="true" PagerStyle-Mode="NextPrevNumericAndAdvanced">
+                       AllowMultiColumnSorting="true" AllowSorting="true" PagerStyle-Mode="NextPrevNumericAndAdvanced" DataKeyNames="BeneficiaryID"
+                        HierarchyLoadMode="Client">
                         <Columns>
                             <telerik:GridBoundColumn DataField="BeneficiaryID" UniqueName="BeneficiaryID" HeaderText="BeneficiaryID"
                                 Display="false">
@@ -54,13 +55,21 @@
                             </telerik:GridBoundColumn>
                              <telerik:GridBoundColumn DataField="DateOfBirth" UniqueName="DOB" HeaderText="DOB"  >
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Problem" UniqueName="Problem" HeaderText="Problem"  >
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AssistanceProvided" UniqueName="AssistanceProvided" HeaderText="AssistanceProvided"  >
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="ReferredTo" UniqueName="ReferredTo" HeaderText="ReferredTo"  >
-                            </telerik:GridBoundColumn>
                         </Columns>
+                         <DetailTables>
+                            <telerik:GridTableView Name="dsProblems">
+                                <Columns>
+                                        <telerik:GridBoundColumn DataField="Problem" UniqueName="Problem" HeaderText="Problem">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AssistanceProvided" UniqueName="AssistanceProvided" HeaderText="AssistanceProvided">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="ReferredTo" UniqueName="ReferredTo" HeaderText="ReferredTo">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Comments" UniqueName="Comments" HeaderText="Comments">
+                                        </telerik:GridBoundColumn>
+                                </Columns>
+                            </telerik:GridTableView>
+                        </DetailTables>
                         <RowIndicatorColumn>
                             <HeaderStyle Width="20px"></HeaderStyle>
                         </RowIndicatorColumn>

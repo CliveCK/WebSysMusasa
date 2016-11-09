@@ -1,4 +1,5 @@
 ﻿Imports BusinessLogic
+Imports Telerik.Web.UI
 
 Public Class ClientDetails
     Inherits System.Web.UI.Page
@@ -74,11 +75,11 @@ Public Class ClientDetails
 
             If Not IsNothing(Request.QueryString("id")) Then
 
-                    LoadClientDetails(objUrlEncoder.Decrypt(Request.QueryString("id")))
-
-                End If
+                LoadClientDetails(objUrlEncoder.Decrypt(Request.QueryString("id")))
 
             End If
+
+        End If
     End Sub
 
     Public Sub LoadControls()
@@ -160,9 +161,9 @@ Public Class ClientDetails
 
         With cboShelter
 
-            .DataSource = objLookup.GetShelter
-            .DataValueField = "SubOfficeID"
-            .DataTextField = "Name"
+            .DataSource = objLookup.GetStaffByType("Shelter").Tables(0)
+            .DataValueField = "StaffID"
+            .DataTextField = "StaffFullName"
             .DataBind()
 
             .Items.Insert(0, New ListItem(String.Empty, 0))
@@ -232,6 +233,8 @@ Public Class ClientDetails
                     cboAccompanynAdult2.Text = .AccompanyingAdult2
                     txtReferredBy.Text = .ReferredBy
 
+                    LoadGrid(.BeneficiaryID)
+
                     ShowMessage("ClientDetails loaded successfully...", MessageTypeEnum.Information)
                     Return True
 
@@ -286,6 +289,20 @@ Public Class ClientDetails
             'First save the beneficiary details - We will need the BeneficiaryID for the Client details
 
             With objBeneficiary
+
+                If Not IsNumeric(txtBeneficiaryID.Text) Then
+
+                    Dim ds As DataSet = .RetriveRecordByID(txtNationalIDNum.Text)
+
+                    If Not IsNothing(ds) AndAlso ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
+
+                        LoadClientDetails(ds.Tables(0).Rows(0)("BeneficiaryID"))
+                        ShowMessage("This person already exists in the system. The details have been loaded...", MessageTypeEnum.Warning)
+                        Exit Function
+
+                    End If
+
+                End If
 
                 .BeneficiaryID = IIf(IsNumeric(txtBeneficiaryID.Text), txtBeneficiaryID.Text, 0)
                 .FirstName = txtFirstName.Text
@@ -344,23 +361,31 @@ Public Class ClientDetails
                     ShowMessage("Missing beneficiary Information", MessageTypeEnum.Error)
                     Exit Function
                 End If
-                .NoOfChildren = txtNumOfChildren.Text
+                If IsNumeric(txtNumOfChildren.Text) Then .NoOfChildren = txtNumOfChildren.Text
                 .EmploymentStatusID = cboEmploymentStatus.SelectedValue
-                .AccompanyingChildren = txtAccompanyingChn.Text
+                If IsNumeric(txtAccompanyingChn.Text) Then .AccompanyingChildren = txtAccompanyingChn.Text
                 If cboCounsellor.SelectedIndex > 0 Then .CounsellorID = cboCounsellor.SelectedValue
                 If cboLawyer.SelectedIndex > 0 Then .LawyerID = cboLawyer.SelectedValue
                 If cboShelter.SelectedIndex > 0 Then .ShelterID = cboShelter.SelectedValue
                 .CapturedFromID = CapturedFrom
-                .ReferredByID = CookiesWrapper.StaffID
                 .ReferredToCounsellor = cboCounsellor.SelectedIndex > 0
+                If cboCounsellor.SelectedIndex > 0 Then .ReferredToCounsellorByID = CookiesWrapper.StaffID
                 .ReferredToLaywer = cboLawyer.SelectedIndex > 0
+                If cboLawyer.SelectedIndex > 0 Then .ReferredToLawyerByID = CookiesWrapper.StaffID
                 .ReferredToShelter = cboShelter.SelectedIndex > 0
+                If cboShelter.SelectedIndex > 0 Then .ReferredToShelterByID = CookiesWrapper.StaffID
                 .NextOfKin = txtNextOfKin.Text
                 .ContactNo = txtNxtOfKinConNum.Text
                 .NatureOfRelationship = txtNatureOfRelationShip.Text
                 .AccompanyingAdult1 = cboAccompanynAdult1.SelectedValue
                 .AccompanyingAdult2 = cboAccompanynAdult2.SelectedValue
                 .ReferredBy = txtReferredBy.Text
+
+                If CapturedFrom = 2 Then
+
+                    .SyncReferredBy(.BeneficiaryID, IIf(cboLawyer.SelectedIndex > 0, cboLawyer.SelectedValue, -1), IIf(cboShelter.SelectedIndex > 0, cboShelter.SelectedValue, -1))
+
+                End If
 
                 If .Save Then
 
@@ -387,6 +412,21 @@ Public Class ClientDetails
         End Try
 
     End Function
+
+    Private Sub LoadGrid(ByVal BeneficiaryID As Long)
+
+        Dim objAccChildren As New BusinessLogic.AccompanyingChildren(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+
+        With radAccChildren
+
+            .DataSource = objAccChildren.GetAccompanyingChildren(BeneficiaryID)
+            .DataBind()
+
+            ViewState("Acc") = .DataSource
+
+        End With
+
+    End Sub
 
     Public Sub Clear()
 
@@ -445,6 +485,104 @@ Public Class ClientDetails
     Private Sub cmdSave_Click(sender As Object, e As EventArgs) Handles cmdSave.Click
 
         Save()
+
+    End Sub
+
+    Private Sub radAccChildren_NeedDataSource(sender As Object, e As GridNeedDataSourceEventArgs) Handles radAccChildren.NeedDataSource
+
+        radAccChildren.DataSource = DirectCast(ViewState("Acc"), DataSet)
+
+    End Sub
+
+    Private Sub cmdAdd_Click(sender As Object, e As EventArgs) Handles cmdAdd.Click
+
+        If IsNumeric(txtBeneficiaryID.Text) AndAlso txtBeneficiaryID.Text > 0 Then
+
+            If Not IsNumeric(txtAccompanyingChn.Text) OrElse txtAccompanyingChn.Text = 0 Then
+
+                ShowMessage("Please specify number of Children greater than 0 to add details", MessageTypeEnum.Error)
+                Exit Sub
+
+            End If
+
+            Dim rows As Int16 = 0
+            Dim objAccChildren As New BusinessLogic.AccompanyingChildren(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+            Dim ds As DataSet = objAccChildren.GetAccompanyingChildren(txtBeneficiaryID.Text)
+
+            If Not IsNothing(ds) AndAlso ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
+
+                rows = ds.Tables(0).Rows.Count
+
+            End If
+
+            If rows >= txtAccompanyingChn.Text Then
+
+                ShowMessage("Number of children specified has been reached", MessageTypeEnum.Error)
+                Exit Sub
+
+            End If
+
+            If IsNumeric(txtAge.Text) Then
+
+                    With objAccChildren
+
+                        .BeneficiaryID = txtBeneficiaryID.Text
+                        .Firstname = txtAccFirstName.Text
+                        .Surname = txtAccSurname.Text
+                        .Sex = cboSexA.SelectedValue
+                        .Age = txtAge.Text
+
+                        If .Save Then
+
+                            LoadGrid(.BeneficiaryID)
+                            ShowMessage("Entry added successfully...", MessageTypeEnum.Information)
+
+                        End If
+
+                    End With
+
+                Else
+
+                    txtAge.BorderColor = Drawing.Color.Red
+                    txtAge.Focus()
+                    ShowMessage("Age must be a number", MessageTypeEnum.Error)
+
+                End If
+
+
+            End If
+
+    End Sub
+
+    Private Sub radAccChildren_ItemCommand(sender As Object, e As GridCommandEventArgs) Handles radAccChildren.ItemCommand
+
+        If TypeOf e.Item Is GridDataItem Then
+
+            Dim index As Integer = Convert.ToInt32(e.Item.ItemIndex.ToString)
+            Dim item As GridDataItem = radAccChildren.Items(index)
+
+            Select Case e.CommandName
+
+                Case "Delete"
+
+                    Dim objAccChildren As New BusinessLogic.AccompanyingChildren(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+
+                    With objAccChildren
+
+                        .AccompanyingChildrenID = Server.HtmlDecode(e.CommandArgument)
+
+                        If .Delete() Then
+
+                            LoadGrid(IIf(IsNumeric(txtBeneficiaryID.Text), txtBeneficiaryID.Text, 0))
+                            ShowMessage("Entry deleted successfully...", MessageTypeEnum.Information)
+
+                        End If
+
+                    End With
+
+            End Select
+
+        End If
 
     End Sub
 End Class

@@ -32,7 +32,7 @@
 		<td class="auto-style2" >Program Code</td> 
         	<td ><asp:textbox id="txtProjectCode" runat="server"  CssClass="form-control"></asp:textbox> </td> 
 	</tr>
-    <tr>
+    <tr style="visibility:collapse">
         <td >Key Change Promise</td> 
         	<td ><asp:ListBox id="lstKeyChangePromise" runat="server" CssClass="form-control" SelectionMode="Multiple" ToolTip="To select Multiple items hold down the Ctrl Key while selecting"></asp:ListBox> </td>
     </tr>

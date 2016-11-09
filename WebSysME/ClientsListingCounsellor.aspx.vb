@@ -82,7 +82,7 @@ Public Class ClientsListingCounsellor
 
                 Dim BeneficiaryID As Long = Server.HtmlDecode(item("BeneficiaryID").Text)
 
-                Response.Redirect("~/ClientCounsellingSessionActivityDetails?tag=couns&id=" & objUrlEncoder.Encrypt(BeneficiaryID))
+                Response.Redirect("~/ClientCounsellingSessionActivityListing?id=" & objUrlEncoder.Encrypt(BeneficiaryID))
 
             End If
 

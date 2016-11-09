@@ -96,6 +96,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccompanyingChildren.vb" />
     <Compile Include="ActivityAttendants.vb" />
     <Compile Include="ActivityCategory.vb" />
     <Compile Include="Address.vb" />
@@ -111,6 +112,7 @@
     <Compile Include="CBSMemberNeeds.vb" />
     <Compile Include="CBSMemberReporting.vb" />
     <Compile Include="CBSMembers.vb" />
+    <Compile Include="ClientDesk.vb" />
     <Compile Include="ClientDetails.vb" />
     <Compile Include="CommonFunctions.vb" />
     <Compile Include="Community.vb" />
@@ -129,6 +131,7 @@
     <Compile Include="EmailSMSDistribution.vb" />
     <Compile Include="Evaluation.vb" />
     <Compile Include="EvaluationObjects.vb" />
+    <Compile Include="FeedBack.vb" />
     <Compile Include="Files.vb" />
     <Compile Include="FirstPointOfContact.vb" />
     <Compile Include="Followups.vb" />
@@ -160,6 +163,7 @@
     <Compile Include="IndicatorActivities.vb" />
     <Compile Include="IndicatorCategory.vb" />
     <Compile Include="InitialCounsellingSession.vb" />
+    <Compile Include="InitialSessionProblemCategory.vb" />
     <Compile Include="Intake.vb" />
     <Compile Include="IntakeTrainingAttendants.vb" />
     <Compile Include="IntakeTrainings.vb" />

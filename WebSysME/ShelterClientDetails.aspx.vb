@@ -59,17 +59,19 @@ Public Class ShelterClientDetails
 
             End With
 
-            With cboWards
+            With cboReferredTo
 
-                .DataSource = objLookup.Lookup("tblWards", "WardID", "Name").Tables(0)
-                .DataValueField = "WardID"
-                .DataTextField = "Name"
+                .DataSource = objLookup.Lookup("luReferralCentreTypes", "ReferralCentreTypeID", "Description").Tables(0)
+                .DataValueField = "ReferralCentreTypeID"
+                .DataTextField = "Description"
                 .DataBind()
 
                 .Items.Insert(0, New ListItem(String.Empty, 0))
                 .SelectedIndex = 0
 
             End With
+
+            radDtDOB.MaxDate = Now
 
             If Not IsNothing(Request.QueryString("id")) Then
 
@@ -112,6 +114,18 @@ Public Class ShelterClientDetails
     Public Function LoadShelterClientDetails(ByVal BeneficiaryID As Long) As Boolean
 
         Try
+            Dim objLookup As New BusinessLogic.CommonFunctions
+            With cboWards
+
+                .DataSource = objLookup.Lookup("tblWards", "WardID", "Name").Tables(0)
+                .DataValueField = "WardID"
+                .DataTextField = "Name"
+                .DataBind()
+
+                .Items.Insert(0, New ListItem(String.Empty, 0))
+                .SelectedIndex = 0
+
+            End With
 
             Dim objShelterClientDetails As New BusinessLogic.ShelterClientDetails(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
             Dim objBeneficiary As New BusinessLogic.Beneficiary(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
@@ -157,6 +171,7 @@ Public Class ShelterClientDetails
                     txtEmployerTelNumber.Text = .EmployerTelNo
                     txtEmployerAddress.Text = .EmployerAddress
                     txtReferredBy.Text = .ReferredBy
+                    If Not IsNothing(cboReferredTo.Items.FindByValue(.ReferredTo)) Then cboReferredTo.SelectedValue = .ReferredTo
                     txtReferrerTelNum.Text = .ReferrerTelNo
                     cboEverSheltered.SelectedValue = .SheltedBefore
                     txtInjuries.Text = .InjuriesSustained
@@ -172,13 +187,17 @@ Public Class ShelterClientDetails
                     txtEmergencyContactAddress.Text = .ContactAddress
                     txtTotalPeopleAdmitted.Text = .TotalAdmitted
                     txtArrivalTime.Text = .ArrivalTime
+                    chkTestedForHIV.Checked = .TestedForHIV
+                    chkDiscloseStatus.Checked = .DiscloseStatus
+                    cboOnArt.SelectedValue = .OnART
+                    cboHIVStatus.SelectedValue = .HIVStatus
 
                     ShowMessage("ShelterClientDetails loaded successfully...", MessageTypeEnum.Information)
                     Return True
 
                 Else
 
-                    ShowMessage("Failed to loadShelterClientDetails", MessageTypeEnum.Error)
+                    'ShowMessage("Failed to loadShelterClientDetails", MessageTypeEnum.Error)
                     Return False
 
                 End If
@@ -259,7 +278,8 @@ Public Class ShelterClientDetails
                     ShowMessage("Missing beneficiary Information", MessageTypeEnum.Error)
                     Exit Function
                 End If
-                If cboEmpoymentStatus.SelectedIndex > -1 Then .EmploymentStatus = cboEmpoymentStatus.SelectedValue
+                If cboEmpoymentStatus.SelectedIndex > 0 Then .EmploymentStatus = cboEmpoymentStatus.SelectedValue
+                If cboReferredTo.SelectedIndex > 0 Then .ReferredTo = cboReferredTo.SelectedValue
                 .EmployerTelNo = txtEmployerTelNumber.Text
                 .EmployerAddress = txtEmployerAddress.Text
                 .ReferredBy = txtReferredBy.Text
@@ -278,6 +298,10 @@ Public Class ShelterClientDetails
                 .ContactAddress = txtEmergencyContactAddress.Text
                 .ArrivalTime = txtArrivalTime.Text
                 .TotalAdmitted = txtTotalPeopleAdmitted.Text
+                .HIVStatus = cboHIVStatus.SelectedValue
+                .DiscloseStatus = chkDiscloseStatus.Checked
+                .TestedForHIV = chkTestedForHIV.Checked
+                .OnART = cboOnArt.SelectedValue
 
                 If .Save Then
 

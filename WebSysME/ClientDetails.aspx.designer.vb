@@ -194,6 +194,60 @@ Partial Public Class ClientDetails
     Protected WithEvents txtAccompanyingChn As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''txtAccFirstName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAccFirstName As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtAccSurname control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAccSurname As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''cboSexA control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cboSexA As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtAge control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAge As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''cmdAdd control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdAdd As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''radAccChildren control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents radAccChildren As Global.Telerik.Web.UI.RadGrid
+    
+    '''<summary>
     '''cboAccompanynAdult1 control.
     '''</summary>
     '''<remarks>

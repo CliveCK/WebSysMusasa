@@ -13,8 +13,9 @@ Public Class ShelterClientDetails
     Protected mUpdatedDate As string
     Protected mEmploymentStatus As string
     Protected mEmployerTelNo As string
-    Protected mEmployerAddress As string
-    Protected mReferredBy As string
+    Protected mEmployerAddress As String
+    Protected mReferredBy As String
+    Protected mReferredTo As Long
     Protected mReferrerTelNo As string
     Protected mSheltedBefore As string
     Protected mInjuriesSustained As string
@@ -30,6 +31,10 @@ Public Class ShelterClientDetails
     Protected mContactAddress As String
     Protected mArrivalTime As String
     Protected mTotalAdmitted As Long
+    Protected mTestedForHIV As Boolean
+    Protected mDiscloseStatus As Boolean
+    Protected mHIVStatus As String
+    Protected mOnART As String
 
     Protected db As Database 
     Protected mConnectionName As String 
@@ -91,6 +96,42 @@ Public Class ShelterClientDetails
         End Get
         Set(ByVal value As Long)
             mTotalAdmitted = value
+        End Set
+    End Property
+
+    Public Property TestedForHIV() As Boolean
+        Get
+            Return mTestedForHIV
+        End Get
+        Set(ByVal value As Boolean)
+            mTestedForHIV = value
+        End Set
+    End Property
+
+    Public Property DiscloseStatus() As Boolean
+        Get
+            Return mDiscloseStatus
+        End Get
+        Set(ByVal value As Boolean)
+            mDiscloseStatus = value
+        End Set
+    End Property
+
+    Public Property HIVStatus() As String
+        Get
+            Return mHIVStatus
+        End Get
+        Set(ByVal value As String)
+            mHIVStatus = value
+        End Set
+    End Property
+
+    Public Property OnART() As String
+        Get
+            Return mOnART
+        End Get
+        Set(ByVal value As String)
+            mOnART = value
         End Set
     End Property
 
@@ -157,12 +198,21 @@ Public Class ShelterClientDetails
         End Set
     End Property
 
-    Public  Property ReferredBy() As string
+    Public Property ReferredBy() As String
         Get
-		return mReferredBy
+            Return mReferredBy
         End Get
-        Set(ByVal value As string)
-		mReferredBy = value
+        Set(ByVal value As String)
+            mReferredBy = value
+        End Set
+    End Property
+
+    Public Property ReferredTo() As Long
+        Get
+            Return mReferredTo
+        End Get
+        Set(ByVal value As Long)
+            mReferredTo = value
         End Set
     End Property
 
@@ -312,8 +362,9 @@ Public Sub Clear()
     mEmploymentStatus = ""
     mEmployerTelNo = ""
     mEmployerAddress = ""
-    mReferredBy = ""
-    mReferrerTelNo = ""
+        mReferredBy = ""
+        mReferredTo = 0
+        mReferrerTelNo = ""
     mSheltedBefore = ""
     mInjuriesSustained = ""
     mAnySpecialMedicalNeeds = ""
@@ -325,9 +376,13 @@ Public Sub Clear()
     mName = ""
     mRelationship = ""
     mContactNo = ""
-    mContactAddress = ""
+        mContactAddress = ""
+        mTestedForHIV = False
+        mDiscloseStatus = False
+        mHIVStatus = ""
+        mOnART = ""
 
-End Sub
+    End Sub
 
 #Region "Retrieve Overloads" 
 
@@ -387,21 +442,22 @@ End Sub
 
     End Function
 
-    Public Function GetBenDetails(ByVal UseCriteria As Boolean, ByVal SubOfficeID As Long) As DataSet
+    Public Function GetBenDetails(ByVal UseCriteria As Boolean, ByVal StaffID As Long) As DataSet
 
         Dim Criteria As String = ""
 
         If UseCriteria Then
 
-            Criteria = " AND ShelterID in (" & SubOfficeID & ")"
+            Criteria = " AND ShelterID = " & StaffID
 
         End If
 
-        Dim sql As String = "Select DISTINCT B.*, D.Name As District, W.Name As Ward from tblBeneficiaries B "
+        Dim sql As String = "Select DISTINCT B.*, D.Name As District, W.Name As Ward, S.StaffFullName AS AssignedBy from tblBeneficiaries B "
         sql &= "Left outer join tblShelterClientDetails L on L.BeneficiaryID = B.BeneficiaryID "
-        sql &= "left outer join tblClientDetails C on C.BeneficiaryID = B.BeneficiaryID "
         sql &= "Left outer join tblAddresses A on A.OwnerID = B.BeneficiaryID  "
         sql &= "left outer join tblDistricts D on D.DistrictID = A.DistrictID "
+        sql &= "left outer join tblClientDetails C on C.BeneficiaryID = B.BeneficiaryID AND ReferredToShelter = 1 " & Criteria & " "
+        sql &= "Left outer join tblStaffMembers S on S.StaffID = C.ReferredToShelterByID "
         sql &= "Left outer join tblWards W on W.WardID = A.WardID  "
         sql &= "where B.BeneficiaryID in (Select BeneficiaryID from tblShelterClientDetails) "
         sql &= " Or B.BeneficiaryID In (Select BeneficiaryID from tblClientDetails where ReferredToShelter = 1 " & Criteria & ")"
@@ -446,6 +502,7 @@ End Sub
             mEmployerTelNo = Catchnull(.Item("EmployerTelNo"), "")
             mEmployerAddress = Catchnull(.Item("EmployerAddress"), "")
             mReferredBy = Catchnull(.Item("ReferredBy"), "")
+            mReferredTo = Catchnull(.Item("ReferredTo"), "")
             mReferrerTelNo = Catchnull(.Item("ReferrerTelNo"), "")
             mSheltedBefore = Catchnull(.Item("SheltedBefore"), "")
             mInjuriesSustained = Catchnull(.Item("InjuriesSustained"), "")
@@ -461,6 +518,10 @@ End Sub
             mContactAddress = Catchnull(.Item("ContactAddress"), "")
             mArrivalTime = Catchnull(.Item("ArrivalTime"), "")
             mTotalAdmitted = Catchnull(.Item("TotalAdmitted"), 0)
+            mTestedForHIV = Catchnull(.Item("TestedForHIV"), 0)
+            mDiscloseStatus = Catchnull(.Item("DiscloseStatus"), 0)
+            mHIVStatus = Catchnull(.Item("HIVStatus"), "")
+            mOnART = Catchnull(.Item("OnART"), "")
 
         End With
 
@@ -477,6 +538,7 @@ End Sub
         db.AddInParameter(cmd, "@EmployerTelNo", DbType.String, mEmployerTelNo)
         db.AddInParameter(cmd, "@EmployerAddress", DbType.String, mEmployerAddress)
         db.AddInParameter(cmd, "@ReferredBy", DbType.String, mReferredBy)
+        db.AddInParameter(cmd, "@ReferredTo", DbType.String, mReferredTo)
         db.AddInParameter(cmd, "@ReferrerTelNo", DbType.String, mReferrerTelNo)
         db.AddInParameter(cmd, "@SheltedBefore", DbType.String, mSheltedBefore)
         db.AddInParameter(cmd, "@InjuriesSustained", DbType.String, mInjuriesSustained)
@@ -492,6 +554,10 @@ End Sub
         db.AddInParameter(cmd, "@ContactAddress", DbType.String, mContactAddress)
         db.AddInParameter(cmd, "@ArrivalTime", DbType.String, mArrivalTime)
         db.AddInParameter(cmd, "@TotalAdmitted", DbType.Int32, mTotalAdmitted)
+        db.AddInParameter(cmd, "@TestedForHIV", DbType.Boolean, mTestedForHIV)
+        db.AddInParameter(cmd, "@DiscloseStatus", DbType.Boolean, mDiscloseStatus)
+        db.AddInParameter(cmd, "@HIVStatus", DbType.String, mHIVStatus)
+        db.AddInParameter(cmd, "@OnART", DbType.String, mOnART)
 
     End Sub
 

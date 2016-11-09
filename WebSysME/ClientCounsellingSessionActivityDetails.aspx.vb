@@ -33,13 +33,20 @@
 
         If Not Page.IsPostBack Then
 
-            If Not IsNothing(Request.QueryString("id")) Then
+            If Not IsNothing(Request.QueryString("benid")) Then
 
-                LoadCounsellingSessionActivities(objUrlEncoder.Decrypt(Request.QueryString("id")))
+                txtBeneficiaryID.Text = objUrlEncoder.Decrypt(Request.QueryString("benid"))
+                LoadBeneficiaryDetails(txtBeneficiaryID.Text)
 
             End If
 
-        End If
+            If Not IsNothing(Request.QueryString("id")) Then
+
+                    LoadCounsellingSessionActivities(objUrlEncoder.Decrypt(Request.QueryString("id")))
+
+                End If
+
+            End If
 
     End Sub
 
@@ -49,39 +56,62 @@
 
     End Sub
 
-    Public Function LoadCounsellingSessionActivities(ByVal BeneficiaryID As Long) As Boolean
+    Private Sub LoadBeneficiaryDetails(ByVal BeneficiaryID As Long)
+
+        Dim objBeneficiary As New BusinessLogic.Beneficiary(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+
+        With objBeneficiary
+
+            If .Retrieve(BeneficiaryID) Then
+
+                txtBeneficiaryID.Text = .BeneficiaryID
+                txtFirstName.Text = .FirstName
+                txtSurname.Text = .Surname
+                If Not .DateOfBirth = "" Then radDOB.SelectedDate = .DateOfBirth
+                If Not IsNothing(cboSex.Items.FindByValue(.Sex)) Then cboSex.SelectedValue = .Sex
+                txtNationalIDNumber.Text = .NationlIDNo
+                txtContactNumber.Text = .ContactNo
+
+            End If
+
+        End With
+
+    End Sub
+
+    Public Function LoadCounsellingSessionActivities(ByVal ClientSessionActivityID As Long) As Boolean
 
         Try
 
             Dim objCounsellingSessionActivities As New BusinessLogic.CounsellingSessionActivities(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
             Dim objBeneficiary As New BusinessLogic.Beneficiary(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
 
-            With objBeneficiary
-
-                If .Retrieve(BeneficiaryID) Then
-
-                    txtBeneficiaryID.Text = .BeneficiaryID
-                    txtFirstName.Text = .FirstName
-                    txtSurname.Text = .Surname
-                    If Not .DateOfBirth = "" Then radDOB.SelectedDate = .DateOfBirth
-                    If Not IsNothing(cboSex.Items.FindByValue(.Sex)) Then cboSex.SelectedValue = .Sex
-                    txtNationalIDNumber.Text = .NationlIDNo
-                    txtContactNumber.Text = .ContactNo
-
-                End If
-
-            End With
-
             With objCounsellingSessionActivities
 
-                If .Retrieve(BeneficiaryID) Then
+                If .Retrieve(ClientSessionActivityID) Then
 
-                    txtBeneficiaryID.Text = .ClientSessionActivityID
+                    txtClientSessionActivityID.Text = .ClientSessionActivityID
+                    txtBeneficiaryID.Text = .BeneficiaryID
                     If Not .ActivityDate <> "" Then radActivityDate.SelectedDate = .ActivityDate
                     txtActivity.Text = .Activity
                     txtDescription.Text = .Description
                     txtOutcome.Text = .Outcome
                     txtRemarks.Text = .Remarks
+
+                    With objBeneficiary
+
+                        If .Retrieve(objCounsellingSessionActivities.BeneficiaryID) Then
+
+                            txtBeneficiaryID.Text = .BeneficiaryID
+                            txtFirstName.Text = .FirstName
+                            txtSurname.Text = .Surname
+                            If Not .DateOfBirth = "" Then radDOB.SelectedDate = .DateOfBirth
+                            If Not IsNothing(cboSex.Items.FindByValue(.Sex)) Then cboSex.SelectedValue = .Sex
+                            txtNationalIDNumber.Text = .NationlIDNo
+                            txtContactNumber.Text = .ContactNo
+
+                        End If
+
+                    End With
 
                     ShowMessage("CounsellingSessionActivities loaded successfully...", MessageTypeEnum.Information)
                     Return True
@@ -114,33 +144,33 @@
 
             'First save the beneficiary details - We will need the BeneficiaryID for the Client details
 
-            With objBeneficiary
+            'With objBeneficiary
 
-                .BeneficiaryID = IIf(IsNumeric(txtBeneficiaryID.Text), txtBeneficiaryID.Text, 0)
-                .FirstName = txtFirstName.Text
-                .Surname = txtSurname.Text
-                .NationlIDNo = txtContactNumber.Text
-                If cboSex.SelectedIndex > -1 Then .Sex = cboSex.SelectedValue
-                If radDOB.SelectedDate.HasValue Then .DateOfBirth = radDOB.SelectedDate
-                .ContactNo = txtContactNumber.Text
-                .Suffix = 1
+            '    .BeneficiaryID = IIf(IsNumeric(txtBeneficiaryID.Text), txtBeneficiaryID.Text, 0)
+            '    .FirstName = txtFirstName.Text
+            '    .Surname = txtSurname.Text
+            '    .NationlIDNo = txtContactNumber.Text
+            '    If cboSex.SelectedIndex > -1 Then .Sex = cboSex.SelectedValue
+            '    If radDOB.SelectedDate.HasValue Then .DateOfBirth = radDOB.SelectedDate
+            '    .ContactNo = txtContactNumber.Text
+            '    .Suffix = 1
 
-                update = .BeneficiaryID > 0
+            '    update = .BeneficiaryID > 0
 
-                If .Save Then
+            '    If .Save Then
 
-                    txtBeneficiaryID.Text = .BeneficiaryID
-                    If update = False Then .MemberNo = .GenerateMemberNo
-                    .Save()
+            '        txtBeneficiaryID.Text = .BeneficiaryID
+            '        If update = False Then .MemberNo = .GenerateMemberNo
+            '        .Save()
 
-                Else
+            '    Else
 
-                    ShowMessage("Failed to save beneficiary details...Process aborted!!", MessageTypeEnum.Error)
-                    Exit Function
+            '        ShowMessage("Failed to save beneficiary details...Process aborted!!", MessageTypeEnum.Error)
+            '        Exit Function
 
-                End If
+            '    End If
 
-            End With
+            'End With
 
             With objCounsellingSessionActivities
 

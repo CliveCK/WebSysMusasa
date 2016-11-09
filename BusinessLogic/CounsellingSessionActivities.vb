@@ -184,14 +184,14 @@ End Sub
 
     End Function
 
-    Public Overridable Function Retrieve(ByVal BeneficiaryID As Long) As Boolean
+    Public Overridable Function Retrieve(ByVal ClientSessionActivityID As Long) As Boolean
 
         Dim sql As String
 
-        If BeneficiaryID > 0 Then
-            sql = "SELECT * FROM tblCounsellingSessionActivities WHERE BeneficiaryID = " & BeneficiaryID
+        If ClientSessionActivityID > 0 Then
+            sql = "SELECT * FROM tblCounsellingSessionActivities WHERE ClientSessionActivityID = " & ClientSessionActivityID
         Else
-            sql = "SELECT * FROM tblCounsellingSessionActivities WHERE BeneficiaryID = " & mBeneficiaryID
+            sql = "SELECT * FROM tblCounsellingSessionActivities WHERE ClientSessionActivityID = " & mClientSessionActivityID
         End If
 
         Return Retrieve(sql)
@@ -243,6 +243,16 @@ End Sub
         Else
             sql = "SELECT * FROM tblCounsellingSessionActivities WHERE ClientSessionActivityID = " & mClientSessionActivityID
         End If
+
+        Return GetCounsellingSessionActivities(sql)
+
+    End Function
+
+    Public Overridable Function GetCounsellingSessionActivitiesByBeneficiaryID(ByVal BeneficiaryID As Long) As DataSet
+
+        Dim sql As String
+
+        sql = "SELECT * FROM tblCounsellingSessionActivities WHERE BeneficiaryID = " & BeneficiaryID
 
         Return GetCounsellingSessionActivities(sql)
 

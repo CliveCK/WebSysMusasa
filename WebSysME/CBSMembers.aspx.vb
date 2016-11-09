@@ -78,4 +78,18 @@ Public Class CBSMembers
         End If
 
     End Sub
+
+    Private Sub radCBS_DetailTableDataBind(sender As Object, e As GridDetailTableDataBindEventArgs) Handles radCBS.DetailTableDataBind
+
+        Dim dataItem As Telerik.Web.UI.GridDataItem = CType(e.DetailTableView.ParentItem, Telerik.Web.UI.GridDataItem)
+        Dim objProblems As New BusinessLogic.CBSMemberNeeds(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+
+        If e.DetailTableView.Name = "dsProblems" Then
+
+            e.DetailTableView.DataSource = objProblems.GetCBSMemberNeedsByBeneficiaryID(dataItem.GetDataKeyValue("BeneficiaryID").ToString())
+
+        End If
+
+
+    End Sub
 End Class

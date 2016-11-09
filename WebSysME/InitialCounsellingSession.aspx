@@ -44,27 +44,24 @@
                 <td>Address</td><td><asp:textbox id="txtAddress"  runat="server" CssClass="form-control"></asp:textbox></td>
            </tr>
         <tr>
-                <td>District</td><td><asp:textbox id="txtDistrict"  runat="server" CssClass="form-control"></asp:textbox></td>
-                <td>Ward</td><td><asp:textbox id="txtWard" runat="server" CssClass="form-control"></asp:textbox></td>
+                <td>District</td><td><asp:DropDownList id="cboDistricts"  runat="server" AutoPostBack="true" CssClass="form-control"></asp:DropDownList></td>
+                <td>Ward</td><td><asp:DropDownList id="cboWards" runat="server" CssClass="form-control"></asp:DropDownList></td>
            </tr>
-        <tr>
-                <td>City</td><td><asp:textbox id="txtCity"  runat="server" CssClass="form-control"></asp:textbox></td>
-                <td>Next of Kin</td><td><asp:textbox id="txtNextOfKin"  runat="server" CssClass="form-control"></asp:textbox></td>
-           </tr>
-        <tr>
+         <tr>
+                <td>Next of Kin</td><td><asp:textbox id="txtNextOfKin"  runat="server" CssClass="form-control"></asp:textbox></td>           
                 <td>Referred By</td><td><asp:textbox id="txtReferredBy"  runat="server" CssClass="form-control"></asp:textbox></td>
                 <td></td><td></td>
-           </tr>
-           <tr>
+           </tr>     
+         <tr>
                <td colspan="3"><h4>Initial Session Details</h4></td>
-           </tr>
+           </tr>            
         <tr>
                 <td>Presenting Problem</td><td colspan="3"><asp:textbox id="txtPresentingProblem" runat="server" CssClass="form-control" Height="110px" TextMode="MultiLine" Width="200px"></asp:textbox></td>
                 
-           </tr>
+           </tr>        
         <tr>             
                 <td>Specify Item Above</td><td><asp:textbox id="txtPropSpecification" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:textbox></td>
-                <td>Problem Category</td><td><asp:ListBox id="lstProblemCategory" runat="server" CssClass="form-control" Height="100px"></asp:ListBox></td>
+                <td>Problem Category</td><td><asp:ListBox id="lstProblemCategory" runat="server" CssClass="form-control" Height="100px" SelectionMode="Multiple"></asp:ListBox></td>
            </tr>
         <tr>
                 <td>Case was reported</td><td><asp:dropdownlist id="cboCaseWasReported" runat="server" AutoPostBack="true" CssClass="form-control" >
@@ -96,8 +93,8 @@
                 <td>Support given to client</td><td ><asp:TextBox ID="txtSupport" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox></td>
            </tr>
            <tr>
-                <td>Refer to Lawyer</td><td><asp:dropdownlist id="cboLawyer" runat="server" AutoPostBack="true" CssClass="form-control" ></asp:dropdownlist></td>
-                <td>Refer to Shelter</td><td><asp:dropdownlist id="cboshelter" runat="server" AutoPostBack="true" CssClass="form-control"></asp:dropdownlist></td>
+                <td>Refer to Lawyer</td><td><asp:dropdownlist id="cboLawyer" runat="server"  CssClass="form-control" ></asp:dropdownlist></td>
+                <td>Refer to Shelter</td><td><asp:dropdownlist id="cboshelter" runat="server" CssClass="form-control"></asp:dropdownlist></td>
            </tr>
            <tr>
                 <td>Care Plan</td><td><asp:textbox id="txtCarePlan" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:textbox></td>
@@ -123,7 +120,7 @@
                     </DateInput>
                 </telerik:RadDatePicker>
                                               </td>
-                <td>Duration of Session</td><td><asp:textbox id="txtSessionDuration" runat="server" CssClass="form-control"></asp:textbox></td>
+                <td>Duration of Session (Minutes)</td><td><asp:textbox id="txtSessionDuration" runat="server" CssClass="form-control"></asp:textbox></td>
            </tr>
                <tr>
                    <td colspan="4"><hr /></td>
@@ -133,7 +130,8 @@
                <td>
                    <asp:button id="cmdSave" runat="server" Text="Save" CssClass="btn btn-default"></asp:button> 
                    <asp:TextBox ID="txtInitialCounsellingSessionID" runat="server" CssClass="HiddenControl"></asp:TextBox> 
-                   <asp:TextBox ID="txtBeneficiaryID" runat="server" CssClass="HiddenControl"></asp:TextBox>                  
+                   <asp:TextBox ID="txtBeneficiaryID" runat="server" CssClass="HiddenControl"></asp:TextBox>  
+                   <asp:TextBox ID="txtAddressID" runat="server" CssClass="HiddenControl"></asp:TextBox>                  
                </td>
                <td>
                   <asp:button id="cmdClear" runat="server" Text="Clear" CssClass="btn btn-default"></asp:button>

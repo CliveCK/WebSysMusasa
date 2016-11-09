@@ -71,6 +71,9 @@
         </tr>
         <tr><td>&nbsp</td></tr>
         <tr>
+            <td>If other, explain</td><td colspan="3" ><asp:textbox id="txtOtherProblem" runat="server" CssClass="form-control" TextMode="MultiLine" ></asp:textbox></td>
+        </tr>
+        <tr>
             <td>Date Of Session</td>
             <td>
                  <telerik:RadDatePicker ID="radSessionDate" runat="server" MinDate="1900-01-01"
@@ -82,9 +85,6 @@
                     </DateInput>
                 </telerik:RadDatePicker>
             </td>
-        </tr>
-        <tr>
-            <td>If other, explain</td><td colspan="3" ><asp:textbox id="txtOtherProblem" runat="server" CssClass="form-control" TextMode="MultiLine" ></asp:textbox></td>
         </tr>
         <tr>
             <td>Case Notes</td><td colspan="3"><asp:textbox id="txtCaseNotes" runat="server" CssClass="form-control" TextMode="MultiLine" Height="72px" Width="671px"></asp:textbox></td>
@@ -102,7 +102,7 @@
             </asp:dropdownlist></td>
         </tr>
         <tr>
-            <td>If other, explain</td>
+            <td>If other Referal, explain</td>
             <td colspan="3" ><asp:textbox id="txtOtherReferDetails" runat="server" CssClass="form-control" Height="60px" TextMode="MultiLine"></asp:textbox></td>
         </tr>
         <tr>
@@ -112,7 +112,7 @@
             <td><asp:button id="cmdSave" runat="server" Text="Save" CssClass="btn btn-default"></asp:button>
                 <asp:TextBox ID="txtLawyerClientSessionDetailID" runat="server" CssClass="HiddenControl" ></asp:TextBox>
                  <asp:TextBox ID="txtBeneficiaryID" runat="server" CssClass="HiddenControl" ></asp:TextBox>
-            </td><td style="width: 200px"></td>
+            </td><td><asp:LinkButton id="lDetails" runat="server" Text="View Details" CssClass="btn btn-default"></asp:LinkButton></td>
         </tr>
        
     </table>

@@ -349,4 +349,15 @@ Public Class LawyerClientSessionDetails
             End If
 
     End Sub
+
+    Private Sub lDetails_Click(sender As Object, e As EventArgs) Handles lDetails.Click
+
+        If (IsNumeric(txtBeneficiaryID.Text)) Then
+
+            Dim url As String = "InitialCounsellingSession?enabled=false&id=" & objUrlEncoder.Encrypt(txtBeneficiaryID.Text)
+            Dim s As String = "window.open('" & url + "', 'popup_window', 'width=1000,height=900,left=100,top=100,resizable=yes');"
+            ClientScript.RegisterStartupScript(Me.GetType(), "script", s, True)
+        End If
+
+    End Sub
 End Class

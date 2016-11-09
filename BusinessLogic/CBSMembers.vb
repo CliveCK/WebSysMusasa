@@ -197,12 +197,8 @@ End Sub
 
         Dim sql As String
 
-        sql = "Select B.*, A.Description As AssistanceProvided, NP.Description As Problem, R.Description As ReferredTo from tblBeneficiaries B "
-        sql &= " inner Join tblCBSMemberNeeds N on N.BeneficiaryID = B.BeneficiaryID "
+        sql = "Select B.* from tblBeneficiaries B "
         sql &= "inner join tblBeneficiaryCBSMemberReportingID D on D.BeneficiaryID = B.BeneficiaryID "
-        sql &= "inner Join luAssistenceAndServicesProvided A on A.AssistenceAndServicesID = N.AssistanceID "
-        sql &= "inner join luNatureOfProblems NP on NP.NatureOfProblemID = N.NeedID "
-        sql &= "Left outer join luReferralCentreTypes R on R.ReferralCentreTypeID = ReferredToID "
         sql &= "where CBSMemberReportingID = " & CBSMemberReportingID
 
         Return GetCBSMembers(sql)

@@ -363,4 +363,13 @@ Partial Public Class CounsellingReturningClientDetails
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtBeneficiaryID As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtAddressID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAddressID As Global.System.Web.UI.WebControls.TextBox
 End Class

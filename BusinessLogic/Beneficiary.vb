@@ -772,7 +772,7 @@ Public Overridable Function Save() As Boolean
 
     Public Function GenerateMemberNo() As String
 
-        Return IIf(mSurname.Length > 2, mSurname.Substring(0, 2), mSurname) & mBeneficiaryID.ToString().PadLeft(4, "0")
+        Return IIf(mSurname.Count > 0, mSurname.Substring(0, 2), IIf(mSurname = "", mFirstName.Substring(0, 2), mSurname)) & mBeneficiaryID.ToString().PadLeft(4, "0")
 
     End Function
 

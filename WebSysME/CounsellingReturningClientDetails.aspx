@@ -51,7 +51,7 @@
         <tr><td colspan="4">&nbsp;</td></tr>
         <tr>
             <td style="width: 310px" >Date of Session</td><td colspan="3"><telerik:RadDatePicker ID="radSessionDate" runat="server" MinDate="1900-01-01"
-                    >
+                    Enabled="false" >
                     <Calendar ID="Calendar3" runat="server" UseColumnHeadersAsSelectors="False" UseRowHeadersAsSelectors="False"
                         ViewSelectorText="x">
                     </Calendar>
@@ -63,8 +63,7 @@
             <td style="width: 310px">Have you been abused after visiting Musasa?</td><td ><asp:dropdownlist id="cboAbusedAfterMusasa" runat="server" AutoPostBack="true" CssClass="form-control" >
             <asp:ListItem>Yes</asp:ListItem>
             <asp:ListItem>No</asp:ListItem>
-            </asp:dropdownlist></td>
-            
+            </asp:dropdownlist></td>            
         </tr>
         <tr>
             <td style="width: 310px">How</td><td ><asp:textbox id="txtAbusedHow" runat="server" CssClass="form-control"></asp:textbox></td>
@@ -161,6 +160,7 @@
             <td colspan="4"><asp:button id="cmdSave" runat="server" Text="Save" CssClass="btn btn-default"></asp:button>
                 <asp:TextBox ID="txtReturningClientDetailID" runat="server" CssClass="HiddenControl"></asp:TextBox>
                 <asp:TextBox ID="txtBeneficiaryID" runat="server" CssClass="HiddenControl"></asp:TextBox>
+                <asp:TextBox ID="txtAddressID" runat="server" CssClass="HiddenControl"></asp:TextBox>
             </td>
         </tr>
     </table>

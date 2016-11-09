@@ -254,13 +254,13 @@ End Sub
 
         End If
 
-        Dim sql As String = "Select DISTINCT B.*, D.Name As District, W.Name As Ward, ISNULL(S.UserFirstName, '') + ISNULL(S.UserSurname, '') AS AssignedBy from tblBeneficiaries B "
+        Dim sql As String = "Select DISTINCT B.*, D.Name As District, W.Name As Ward, S.StaffFullName AS AssignedBy from tblBeneficiaries B "
         sql &= "Left outer join tblLaywerClientSessionDetails L on L.BeneficiaryID = B.BeneficiaryID "
         sql &= "Left outer join tblAddresses A on A.OwnerID = B.BeneficiaryID  "
         sql &= "left outer join tblDistricts D on D.DistrictID = A.DistrictID "
         sql &= "Left outer join tblWards W on W.WardID = A.WardID  "
         sql &= "left outer join tblClientDetails C on C.BeneficiaryID = B.BeneficiaryID AND ReferredToLaywer = 1 " & Criteria & " "
-        sql &= "Left outer join tblUsers S on S.UserID = C.CreatedBy "
+        sql &= "Left outer join tblStaffMembers S on S.StaffID = C.ReferredToLawyerByID "
         sql &= "where B.BeneficiaryID in (Select BeneficiaryID from tblLaywerClientSessionDetails) "
         sql &= " Or B.BeneficiaryID in (Select BeneficiaryID from tblClientDetails where ReferredToLaywer = 1 " & Criteria & " )"
 

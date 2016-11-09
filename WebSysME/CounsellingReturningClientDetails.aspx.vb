@@ -35,6 +35,8 @@ Public Class CounsellingReturningClientDetails
 
         If Not IsPostBack Then
 
+            LoadCombos()
+
             If Not IsNothing(Request.QueryString("id")) Then
 
                 LoadReturningClientDetails(objUrlEncoder.Decrypt(Request.QueryString("id")))
@@ -99,10 +101,11 @@ Public Class CounsellingReturningClientDetails
 
             Dim objReturningClientDetails As New ReturningClientDetails(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
             Dim objBeneficiary As New BusinessLogic.Beneficiary(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+            Dim objAddress As New BusinessLogic.Address(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
 
             With objBeneficiary
 
-                If .Retrieve(BeneficiaryID) Then
+                If .RetrieveWithAddress(BeneficiaryID) Then
 
                     txtBeneficiaryID.Text = .BeneficiaryID
                     txtFirstName.Text = .FirstName
@@ -114,6 +117,17 @@ Public Class CounsellingReturningClientDetails
                     txtNationalIDNumber.Text = .NationlIDNo
                     If Not IsNothing(cboLevelOfEducation.Items.FindByValue(.LevelOfEducation)) Then cboLevelOfEducation.SelectedValue = .LevelOfEducation
                     txtPhoneNumber.Text = .ContactNo
+
+                End If
+
+            End With
+
+            With objAddress
+
+                If .Retrieve(BeneficiaryID) Then
+
+                    txtAddressID.Text = .AddressID
+                    txtAddress.Text = .Address
 
                 End If
 
@@ -232,10 +246,10 @@ Public Class CounsellingReturningClientDetails
                     ShowMessage("Missing beneficiary Information", MessageTypeEnum.Error)
                     Exit Function
                 End If
-                .HowManyTimes = txtNumberOfAbuses.Text
+                If IsNumeric(txtNumberOfAbuses.Text) Then .HowManyTimes = txtNumberOfAbuses.Text
                 If radDtOfLastAbuse.SelectedDate.HasValue Then .DateOfLastAbuse = radDtOfLastAbuse.SelectedDate
                 If radDtOfNxtAppontmt.SelectedDate.HasValue Then .NextAppointmentDate = radDtOfNxtAppontmt.SelectedDate
-                If radSessionDate.SelectedDate.HasValue Then .SessionDate = radSessionDate.SelectedDate
+                If radSessionDate.SelectedDate.HasValue Then .SessionDate = radSessionDate.SelectedDate Else .SessionDate = Now
                 .AbusedAfterVisit = cboAbusedAfterMusasa.SelectedValue
                 .AbusedHow = txtAbusedHow.Text
                 .HasPreviousAbuseContinued = cboPrevAbuseContinued.SelectedValue

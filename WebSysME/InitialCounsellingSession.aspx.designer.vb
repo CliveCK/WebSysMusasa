@@ -122,31 +122,22 @@ Partial Public Class InitialCounsellingSession
     Protected WithEvents txtAddress As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtDistrict control.
+    '''cboDistricts control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtDistrict As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents cboDistricts As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txtWard control.
+    '''cboWards control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtWard As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtCity control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtCity As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents cboWards As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''txtNextOfKin control.
@@ -372,6 +363,15 @@ Partial Public Class InitialCounsellingSession
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtBeneficiaryID As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtAddressID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAddressID As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''cmdClear control.

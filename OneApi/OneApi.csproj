@@ -32,6 +32,9 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -126,9 +129,16 @@
     <Compile Include="Model\LoginRequest.cs" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Components\log4net.dll" />
+    <Content Include="Components\Newtonsoft.Json.dll" />
+    <Content Include="Components\OneApi.dll" />
+    <Content Include="Components\OneApi.pdb" />
+    <Content Include="Components\RestSharp.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy “$(ProjectDir)\Etc” “$(TargetDir)”</PostBuildEvent>
+    <PostBuildEvent>copy “$(ProjectDir)\Etc” "$(TargetDir)”</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

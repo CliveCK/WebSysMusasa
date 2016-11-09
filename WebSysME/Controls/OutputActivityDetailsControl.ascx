@@ -44,7 +44,7 @@
                             <ItemTemplate>
                                 <asp:ImageButton ID="imgEdit" runat="server" AlternateText="Cancel" CausesValidation="False" Visible="false"
                                     CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ActivityID")%>'
-                                    CommandName="Delete" ImageUrl="~/images/Delete.png" OnClientClick="javascript:return confirm('Are you sure you want to remove from Training?')"
+                                    CommandName="Delete" ImageUrl="~/images/Delete.png" OnClientClick="javascript:return confirm('Are you sure you want to remove item?')"
                                     ToolTip="Click to remove " />
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>

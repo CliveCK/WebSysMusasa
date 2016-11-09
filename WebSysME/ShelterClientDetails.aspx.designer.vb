@@ -293,6 +293,51 @@ Partial Public Class ShelterClientDetails
     Protected WithEvents txtPresentingProblem As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''chkTestedForHIV control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkTestedForHIV As Global.System.Web.UI.WebControls.CheckBox
+    
+    '''<summary>
+    '''chkDiscloseStatus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkDiscloseStatus As Global.System.Web.UI.WebControls.CheckBox
+    
+    '''<summary>
+    '''cboHIVStatus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cboHIVStatus As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''cboOnArt control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cboOnArt As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''cboReferredTo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cboReferredTo As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
     '''cmdSave control.
     '''</summary>
     '''<remarks>

@@ -36,6 +36,11 @@ Public Class InitialCounsellingSession
             radDOB.MaxDate = Now
 
             LoadCombos()
+            If Not IsNothing(Request.QueryString("enabled")) Then
+
+                DisableControls(Page, False)
+
+            End If
 
             If Not IsNothing(Request.QueryString("id")) Then
 
@@ -45,6 +50,24 @@ Public Class InitialCounsellingSession
 
         End If
 
+    End Sub
+    Private Sub DisableControls(ByVal Parent As Control, ByVal state As Boolean)
+        For Each c As Control In Parent.Controls
+            If TypeOf (c) Is DropDownList Then
+                DirectCast(c, DropDownList).Enabled = state
+            End If
+
+            If TypeOf (c) Is TextBox Then
+                DirectCast(c, TextBox).Enabled = state
+            End If
+
+            If TypeOf (c) Is Button Then
+                DirectCast(c, Button).Enabled = state
+            End If
+
+            DisableControls(c, state)
+
+        Next
     End Sub
 
     Private Sub LoadCombos()
@@ -57,8 +80,8 @@ Public Class InitialCounsellingSession
             .DataTextField = "Description"
             .DataBind()
 
-            .Items.Insert(0, New ListItem(String.Empty, String.Empty))
-            .SelectedIndex = 0
+            .Items.Insert(0, New ListItem(String.Empty, 0))
+
         End With
 
         With cboMaritalStatus
@@ -68,7 +91,31 @@ Public Class InitialCounsellingSession
             .DataTextField = "Description"
             .DataBind()
 
-            .Items.Insert(0, New ListItem(String.Empty, String.Empty))
+            .Items.Insert(0, New ListItem(String.Empty, 0))
+            .SelectedIndex = 0
+
+        End With
+
+        With cboDistricts
+
+            .DataSource = objLookup.Lookup("tblDistricts", "DistrictID", "Name").Tables(0)
+            .DataValueField = "DistrictID"
+            .DataTextField = "Name"
+            .DataBind()
+
+            .Items.Insert(0, New ListItem(String.Empty, 0))
+            .SelectedIndex = 0
+
+        End With
+
+        With cboWards
+
+            .DataSource = objLookup.Lookup("tblWards", "WardID", "Name").Tables(0)
+            .DataValueField = "WardID"
+            .DataTextField = "Name"
+            .DataBind()
+
+            .Items.Insert(0, New ListItem(String.Empty, 0))
             .SelectedIndex = 0
 
         End With
@@ -111,19 +158,48 @@ Public Class InitialCounsellingSession
 
             Dim objInitialCounsellingSession As New BusinessLogic.InitialCounsellingSession(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
             Dim objBeneficiary As New BusinessLogic.Beneficiary(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+            Dim objInitialSessionProblemCat As New BusinessLogic.InitialSessionProblemCategory(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+            Dim objAddress As New BusinessLogic.Address(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+            Dim objClientDetails As New BusinessLogic.ClientDetails(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
 
             With objBeneficiary
 
-                If .Retrieve(BeneficiaryID) Then
+                If .RetrieveWithAddress(BeneficiaryID) Then
 
                     txtBeneficiaryID.Text = .BeneficiaryID
                     txtFirstName.Text = .FirstName
                     txtSurname.Text = .Surname
+                    txtPhoneNumber.Text = .ContactNo
                     If Not .DateOfBirth = "" Then radDOB.SelectedDate = .DateOfBirth
                     If Not IsNothing(cboSex.Items.FindByValue(.Sex)) Then cboSex.SelectedValue = .Sex
                     txtNationalIDNumber.Text = .NationlIDNo
                     If Not IsNothing(cboMaritalStatus.Items.FindByValue(.MaritalStatus)) Then cboMaritalStatus.SelectedValue = .MaritalStatus
                     If Not IsNothing(cboLevelOfEducation.Items.FindByValue(.LevelOfEducation)) Then cboLevelOfEducation.SelectedValue = .LevelOfEducation
+                    If Not IsNothing(cboDistricts.Items.FindByValue(.DistrictID)) Then cboDistricts.SelectedValue = .DistrictID
+                    If Not IsNothing(cboWards.Items.FindByValue(.WardID)) Then cboWards.SelectedValue = .WardID
+
+                End If
+
+            End With
+
+            With objAddress
+
+                If .Retrieve(BeneficiaryID) Then
+
+                    txtAddressID.Text = .AddressID
+                    txtAddress.Text = .Address
+
+                End If
+
+            End With
+
+            With objClientDetails
+
+                If .Retrieve(BeneficiaryID) Then
+
+                    txtNextOfKin.Text = .NextOfKin
+                    txtReferredBy.Text = .ReferredBy
+                    txtEmploymentStatus.Text = .EmploymentStatusID
 
                 End If
 
@@ -136,8 +212,8 @@ Public Class InitialCounsellingSession
                     txtInitialCounsellingSessionID.Text = .InitialCounsellingSessionID
                     'If Not IsNothing(cboProblemCategory.Items.FindByValue(.ProblemCategoryID)) Then cboProblemCategory.SelectedValue = .ProblemCategoryID
                     txtTimesRpted.Text = .HowManyTimes
-                    If Not IsNothing(cboLawyer.Items.FindByValue(.LawyerID)) Then cboLawyer.SelectedValue = .LawyerID
                     If Not IsNothing(cboshelter.Items.FindByValue(.ShelterID)) Then cboshelter.SelectedValue = .ShelterID
+                    If Not IsNothing(cboLawyer.Items.FindByValue(.LawyerID)) Then cboLawyer.SelectedValue = .LawyerID
                     If Not .CreatedDate = "" Then radSessionDate.SelectedDate = .CreatedDate
                     If Not .NextAppointmentDate = "" Then radDtNext.SelectedDate = .NextAppointmentDate
                     txtPresentingProblem.Text = .PresentingProblem
@@ -148,11 +224,30 @@ Public Class InitialCounsellingSession
                     cboMedicalReport.Text = .MedicalReport
                     txtSessionDuration.Text = .DurationOfSession
                     txtIssuedBy.Text = .IssuedBy
+                    txtProblemsFaced.Text = .ProblemsExperienced
                     txtPropSpecification.Text = .ProblemsExperienced
                     txtClientExpectations.Text = .ClientExpectations
                     txtOtherOptionAvailable.Text = .OtherOptionAvailable
                     txtReferral.Text = .Referral
                     txtCarePlan.Text = .CarePlan
+                    txtEmploymentStatus.Text = .EmploymentStatus
+                    txtSupport.Text = .Support
+
+                    Dim dsInitialSessionProblemCat As DataSet = objInitialSessionProblemCat.GetInitialSessionProblemCategory(.InitialCounsellingSessionID)
+
+                    If Not IsNothing(dsInitialSessionProblemCat) AndAlso dsInitialSessionProblemCat.Tables.Count > 0 AndAlso dsInitialSessionProblemCat.Tables(0).Rows.Count > 0 Then
+
+                        For Each i As ListItem In lstProblemCategory.Items
+
+                            If dsInitialSessionProblemCat.Tables(0).Select("ProblemID = " & i.Value).Length > 0 Then
+
+                                i.Selected = True
+
+                            End If
+
+                        Next
+
+                    End If
 
                     ShowMessage("InitialCounsellingSession loaded successfully...", MessageTypeEnum.Information)
                     Return True
@@ -181,6 +276,7 @@ Public Class InitialCounsellingSession
 
             Dim objInitialCounsellingSession As New BusinessLogic.InitialCounsellingSession(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
             Dim objBeneficiary As New BusinessLogic.Beneficiary(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+            Dim update As Boolean = False
 
             'First save the beneficiary details - We will need the BeneficiaryID for the Client details
 
@@ -190,18 +286,38 @@ Public Class InitialCounsellingSession
                 .FirstName = txtFirstName.Text
                 .Surname = txtSurname.Text
                 .NationlIDNo = txtNationalIDNumber.Text
-                If cboSex.SelectedIndex > -1 Then .Sex = cboSex.SelectedValue
+                .Sex = cboSex.SelectedValue
                 If cboLevelOfEducation.SelectedIndex > 0 Then .LevelOfEducation = cboLevelOfEducation.SelectedValue
                 If cboMaritalStatus.SelectedIndex > 0 Then .MaritalStatus = cboMaritalStatus.SelectedValue
                 If radDOB.SelectedDate.HasValue Then .DateOfBirth = radDOB.SelectedDate
                 .ContactNo = txtPhoneNumber.Text
                 .Suffix = 1
 
+                update = .BeneficiaryID > 0
+
                 If .Save Then
 
                     txtBeneficiaryID.Text = .BeneficiaryID
-                    .MemberNo = .GenerateMemberNo
+                    If update = False Then .MemberNo = .GenerateMemberNo
                     .Save()
+
+                    Dim objAdrress As New BusinessLogic.Address(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+
+                    With objAdrress
+
+                        .AddressID = IIf(IsNumeric(txtAddressID.Text), txtAddressID.Text, 0)
+                        .OwnerID = objBeneficiary.BeneficiaryID
+                        If cboDistricts.SelectedIndex > 0 Then .DistrictID = cboDistricts.SelectedValue
+                        If cboWards.SelectedIndex > 0 Then .WardID = cboWards.SelectedValue
+                        .Address = txtAddress.Text
+
+                        If .Save() Then
+
+                            If Not IsNumeric(txtAddressID.Text) OrElse Trim(txtAddressID.Text) = 0 Then txtAddressID.Text = .AddressID
+
+                        End If
+
+                    End With
 
                 Else
 
@@ -222,28 +338,47 @@ Public Class InitialCounsellingSession
                     Exit Function
                 End If
                 'If cboProblemCategory.SelectedIndex > 0 Then .ProblemCategoryID = cboProblemCategory.SelectedValue
-                .HowManyTimes = txtTimesRpted.Text
+                If IsNumeric(txtTimesRpted.Text) Then .HowManyTimes = txtTimesRpted.Text
                 If cboLawyer.SelectedIndex > 0 Then .LawyerID = cboLawyer.SelectedValue
                 If cboshelter.SelectedIndex > 0 Then .ShelterID = cboshelter.SelectedValue
                 'If radSessionDate.SelectedDate.HasValue Then .SessionDate = radSessionDate.SelectedDate
-                If radDtNext.SelectedDate.HasValue Then .NextAppointmentDate = radDtNext.SelectedDate
+                If radDtNext.SelectedDate.HasValue Then
+                    If radDtNext.SelectedDate <= IIf(Not .SessionDate = "", .SessionDate, Now) Then
+
+                        ShowMessage("Next Appointment date cannot be before Current session date", MessageTypeEnum.Error)
+                        Exit Function
+
+                    End If
+                    .NextAppointmentDate = radDtNext.SelectedDate
+                End If
                 .ReferredToLaywer = cboLawyer.SelectedIndex > 0
                 .ReferredToShelter = cboshelter.SelectedIndex > 0
+                .SyncReferredBy(.BeneficiaryID, IIf(cboLawyer.SelectedIndex > 0, cboLawyer.SelectedValue, -1), IIf(cboshelter.SelectedIndex > 0, cboshelter.SelectedValue, -1), CookiesWrapper.StaffID)
                 .PresentingProblem = txtPresentingProblem.Text
                 .Other = txtOtherOptionAvailable.Text
                 .CaseReported = cboCaseWasReported.SelectedValue
                 .WhereWasProblemReported = txtPlaceWhereReported.Text
                 .ChallengesFaced = txtChallengesFaced.Text
                 .MedicalReport = cboMedicalReport.SelectedValue
-                .DurationOfSession = txtSessionDuration.Text
+                If IsNumeric(txtSessionDuration.Text) Then
+                    .DurationOfSession = txtSessionDuration.Text
+                Else
+                    ShowMessage("Duration must be in minutes", MessageTypeEnum.Error) : Exit Function
+                End If
                 .IssuedBy = txtIssuedBy.Text
-                .ProblemsExperienced = txtPropSpecification.Text
+                .ProblemsExperienced = txtProblemsFaced.Text
                 .ClientExpectations = txtClientExpectations.Text
                 .OtherOptionAvailable = txtOtherOptionAvailable.Text
                 .Referral = txtReferral.Text
                 .CarePlan = txtCarePlan.Text
+                .ReferredBy = txtReferredBy.Text
+                .EmploymentStatus = txtEmploymentStatus.Text
+                .NextOfkin = txtNextOfKin.Text
+                .Support = txtSupport.Text
 
                 If .Save Then
+
+                    SaveKeyProblemCategory(.InitialCounsellingSessionID)
 
                     If Not IsNumeric(txtInitialCounsellingSessionID.Text) OrElse Trim(txtInitialCounsellingSessionID.Text) = 0 Then txtInitialCounsellingSessionID.Text = .InitialCounsellingSessionID
                     ShowMessage("InitialCounsellingSession saved successfully...", MessageTypeEnum.Information)
@@ -268,6 +403,69 @@ Public Class InitialCounsellingSession
         End Try
 
     End Function
+
+    Private Function SaveKeyProblemCategory(ByVal InitialCounsellingSessionID As Long) As Boolean
+
+        Try
+
+            For Each i As ListItem In lstProblemCategory.Items
+
+                Dim objInitialSessionProblemCategory As New BusinessLogic.InitialSessionProblemCategory(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
+
+                With objInitialSessionProblemCategory
+
+                    .InitialCounsellingSessionID = InitialCounsellingSessionID
+                    .ProblemID = i.Value
+
+                    If i.Selected = True And i.Value > 0 Then
+
+                        If Not .CheckExistence() Then .Save()
+
+                    Else
+
+                        If .CheckExistence() Then
+
+                            .DeleteEntry()
+
+                        End If
+
+                    End If
+
+                End With
+
+            Next
+
+            Return True
+
+        Catch ex As Exception
+
+            Return False
+
+        End Try
+
+    End Function
+
+    Private Sub cboDistrict_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboDistricts.SelectedIndexChanged
+
+        Dim objLookup As New BusinessLogic.CommonFunctions
+
+        If cboDistricts.SelectedIndex > 0 Then
+
+            With cboWards
+
+                .DataSource = objLookup.Lookup("tblWards", "WardID", "Name", , "DistrictID = " & cboDistricts.SelectedValue).Tables(0)
+                .DataValueField = "WardID"
+                .DataTextField = "Name"
+                .DataBind()
+
+                .Items.Insert(0, New ListItem(String.Empty, 0))
+                .SelectedIndex = 0
+
+            End With
+
+        End If
+
+    End Sub
 
     Public Sub Clear()
 

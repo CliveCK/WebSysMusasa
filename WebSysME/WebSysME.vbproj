@@ -162,6 +162,7 @@
     <Content Include="CBSMemberReporting.aspx" />
     <Content Include="CBSMembers.aspx" />
     <Content Include="ClientCounsellingSessionActivityDetails.aspx" />
+    <Content Include="ClientCounsellingSessionActivityListing.aspx" />
     <Content Include="ClientDetails.aspx" />
     <Content Include="ClientsListingCounsellor.aspx" />
     <Content Include="ClientsListingReception.aspx" />
@@ -185,6 +186,7 @@
     <Content Include="Controls\BudgetsDetailsControl.ascx" />
     <Content Include="Controls\BudgetTrackingDetailsControl.ascx" />
     <Content Include="Controls\CashDonationDetailsControl.ascx" />
+    <Content Include="Controls\ClientDeskDetailsControl.ascx" />
     <Content Include="Controls\CommunityDetailsControl.ascx" />
     <Content Include="Controls\ComplementaryListboxes.ascx" />
     <Content Include="Controls\ComplementaryListboxesVertical.ascx" />
@@ -193,6 +195,7 @@
     <Content Include="Controls\DistributionsDetailsControl.ascx" />
     <Content Include="Controls\DocumentObjectsDetailsControl.ascx" />
     <Content Include="Controls\EvaluationDetailsControl.ascx" />
+    <Content Include="Controls\FeedBackDetailsControl.ascx" />
     <Content Include="Controls\FileUploadControl.ascx" />
     <Content Include="Controls\FundRaisingDetailsControl.ascx" />
     <Content Include="Controls\GeneralActivityAttendantsDetailsControl.ascx" />
@@ -229,6 +232,8 @@
     <Content Include="CounsellingReturningClientsListing.aspx" />
     <Content Include="CurrencyManagement.aspx" />
     <Content Include="Dashboards.aspx" />
+    <Content Include="ExcelUploadConsole.aspx" />
+    <Content Include="FeedbackForm.aspx" />
     <Content Include="GeneralActivityAttendantsPage.aspx" />
     <Content Include="GeneralActivityDocuments.aspx" />
     <Content Include="GeneralActivityInputsPage.aspx" />
@@ -246,6 +251,8 @@
     <Content Include="GroupMembersPage.aspx" />
     <Content Include="HealthCenterStaffPage.aspx" />
     <Content Include="HealthStaffMembers.aspx" />
+    <Content Include="HelpDesk.aspx" />
+    <Content Include="HelpDeskInfoListing.aspx" />
     <Content Include="images\AAx.jpg" />
     <Content Include="ImpactObjectivePage.aspx" />
     <Content Include="ImpactProjectPage.aspx" />
@@ -1373,6 +1380,13 @@
       <DependentUpon>ClientCounsellingSessionActivityDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="ClientCounsellingSessionActivityListing.aspx.designer.vb">
+      <DependentUpon>ClientCounsellingSessionActivityListing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClientCounsellingSessionActivityListing.aspx.vb">
+      <DependentUpon>ClientCounsellingSessionActivityListing.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="ClientDetails.aspx.designer.vb">
       <DependentUpon>ClientDetails.aspx</DependentUpon>
     </Compile>
@@ -1457,6 +1471,13 @@
       <DependentUpon>CashDonationDetailsControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controls\ClientDeskDetailsControl.ascx.designer.vb">
+      <DependentUpon>ClientDeskDetailsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ClientDeskDetailsControl.ascx.vb">
+      <DependentUpon>ClientDeskDetailsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Controls\CommunityDetailsControl.ascx.designer.vb">
       <DependentUpon>CommunityDetailsControl.ascx</DependentUpon>
     </Compile>
@@ -1511,6 +1532,13 @@
     </Compile>
     <Compile Include="Controls\EvaluationDetailsControl.ascx.vb">
       <DependentUpon>EvaluationDetailsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\FeedBackDetailsControl.ascx.designer.vb">
+      <DependentUpon>FeedBackDetailsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FeedBackDetailsControl.ascx.vb">
+      <DependentUpon>FeedBackDetailsControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\FileUploadControl.ascx.designer.vb">
@@ -1765,6 +1793,20 @@
       <DependentUpon>Dashboards.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="ExcelUploadConsole.aspx.designer.vb">
+      <DependentUpon>ExcelUploadConsole.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelUploadConsole.aspx.vb">
+      <DependentUpon>ExcelUploadConsole.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="FeedbackForm.aspx.designer.vb">
+      <DependentUpon>FeedbackForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FeedbackForm.aspx.vb">
+      <DependentUpon>FeedbackForm.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="GeneralActivityAttendantsPage.aspx.designer.vb">
       <DependentUpon>GeneralActivityAttendantsPage.aspx</DependentUpon>
     </Compile>
@@ -1882,6 +1924,20 @@
     </Compile>
     <Compile Include="HealthStaffMembers.aspx.vb">
       <DependentUpon>HealthStaffMembers.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="HelpDesk.aspx.designer.vb">
+      <DependentUpon>HelpDesk.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HelpDesk.aspx.vb">
+      <DependentUpon>HelpDesk.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="HelpDeskInfoListing.aspx.designer.vb">
+      <DependentUpon>HelpDeskInfoListing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HelpDeskInfoListing.aspx.vb">
+      <DependentUpon>HelpDeskInfoListing.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="ImpactObjectivePage.aspx.designer.vb">

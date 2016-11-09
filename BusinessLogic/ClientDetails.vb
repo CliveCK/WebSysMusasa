@@ -13,8 +13,10 @@ Public Class ClientDetails
     Protected mCounsellorID As long
     Protected mLawyerID As long
     Protected mShelterID As long
-    Protected mCapturedFromID As long
-    Protected mReferredByID As long
+    Protected mCapturedFromID As Long
+    Protected mReferredToCounsellorByID As Long
+    Protected mReferredToLawyerByID As Long
+    Protected mReferredToShelterByID As Long
     Protected mCreatedBy As long
     Protected mUpdatedBy As long
     Protected mCreatedDate As string
@@ -139,12 +141,30 @@ Public Class ClientDetails
         End Set
     End Property
 
-    Public  Property ReferredByID() As long
+    Public Property ReferredToCounsellorByID() As Long
         Get
-		return mReferredByID
+            Return mReferredToCounsellorByID
         End Get
-        Set(ByVal value As long)
-		mReferredByID = value
+        Set(ByVal value As Long)
+            mReferredToCounsellorByID = value
+        End Set
+    End Property
+
+    Public Property ReferredToLawyerByID() As Long
+        Get
+            Return mReferredToLawyerByID
+        End Get
+        Set(ByVal value As Long)
+            mReferredToLawyerByID = value
+        End Set
+    End Property
+
+    Public Property ReferredToShelterByID() As Long
+        Get
+            Return mReferredToShelterByID
+        End Get
+        Set(ByVal value As Long)
+            mReferredToShelterByID = value
         End Set
     End Property
 
@@ -292,8 +312,8 @@ Public Sub Clear()
     mLawyerID = 0
     mShelterID = 0
     mCapturedFromID = 0
-    mReferredByID = 0
-    mCreatedBy = mObjectUserID
+        mReferredToCounsellorByID = 0
+        mCreatedBy = mObjectUserID
     mUpdatedBy = 0
     mCreatedDate = ""
     mUpdatedDate = ""
@@ -415,7 +435,9 @@ End Sub
             mLawyerID = Catchnull(.Item("LawyerID"), 0)
             mShelterID = Catchnull(.Item("ShelterID"), 0)
             mCapturedFromID = Catchnull(.Item("CapturedFromID"), 0)
-            mReferredByID = Catchnull(.Item("ReferredByID"), 0)
+            mReferredToCounsellorByID = Catchnull(.Item("ReferredToCounsellorByID"), 0)
+            mReferredToLawyerByID = Catchnull(.Item("ReferredToLawyerByID"), 0)
+            mReferredToShelterByID = Catchnull(.Item("ReferredToShelterByID"), 0)
             mCreatedBy = Catchnull(.Item("CreatedBy"), 0)
             mUpdatedBy = Catchnull(.Item("UpdatedBy"), 0)
             mCreatedDate = Catchnull(.Item("CreatedDate"), "")
@@ -447,7 +469,9 @@ End Sub
         db.AddInParameter(cmd, "@LawyerID", DbType.Int32, mLawyerID)
         db.AddInParameter(cmd, "@ShelterID", DbType.Int32, mShelterID)
         db.AddInParameter(cmd, "@CapturedFromID", DbType.Int32, mCapturedFromID)
-        db.AddInParameter(cmd, "@ReferredByID", DbType.Int32, mReferredByID)
+        db.AddInParameter(cmd, "@ReferredToCounsellorByID", DbType.Int32, mReferredToCounsellorByID)
+        db.AddInParameter(cmd, "@ReferredToLawyerByID", DbType.Int32, mReferredToLawyerByID)
+        db.AddInParameter(cmd, "@ReferredToShelterByID", DbType.Int32, mReferredToShelterByID)
         db.AddInParameter(cmd, "@UpdatedBy", DbType.Int32, mObjectUserID)
         db.AddInParameter(cmd, "@ReferredToCounsellor", DbType.Boolean, mReferredToCounsellor)
         db.AddInParameter(cmd, "@ReferredToLaywer", DbType.Boolean, mReferredToLaywer)
@@ -487,6 +511,28 @@ End Sub
         End Try
 
     End Function
+
+    Public Sub SyncReferredBy(ByVal BeneficiaryID As Long, ByVal ReferredToLaywerByID As Long, ByVal ReferredToShelterByID As Long)
+
+        Dim sql As String = ""
+
+        If ReferredToLaywerByID > 0 And ReferredToShelterByID < 0 Then
+
+            sql = "UPDATE tblInitialCounsellingSession SET ReferredToLaywer = 1 , LawyerID = " & ReferredToLaywerByID & " WHERE BeneficiaryID = " & BeneficiaryID
+
+        ElseIf ReferredToShelterByID > 0 And ReferredToLaywerByID < 0 Then
+
+            sql = "UPDATE tblInitialCounsellingSession SET ReferredToShelter = 1 , ShelterID = " & ReferredToShelterByID & " WHERE BeneficiaryID = " & BeneficiaryID
+
+        ElseIf ReferredToShelterByID > 0 And ReferredToLaywerByID > 0 Then
+
+            sql = "UPDATE tblInitialCounsellingSession SET ReferredToLaywer = 1 , LawyerID = " & ReferredToLaywerByID & ", ReferredToShelter = 1 , ShelterID = " & ReferredToShelterByID & " WHERE BeneficiaryID = " & BeneficiaryID
+
+        End If
+
+        db.ExecuteNonQuery(CommandType.Text, sql)
+
+    End Sub
 
 #End Region
 

@@ -33,8 +33,9 @@ Public Class InitialCounsellingSession
     Protected mProblemsExperienced As string
     Protected mClientExpectations As string
     Protected mOtherOptionAvailable As string
-    Protected mReferral As string
-    Protected mCarePlan As string
+    Protected mReferral As String
+    Protected mCarePlan As String
+    Protected mSupport As String
 
     Protected db As Database 
     Protected mConnectionName As String 
@@ -160,6 +161,15 @@ Public Class InitialCounsellingSession
         End Get
         Set(ByVal value As String)
             mReferredBy = value
+        End Set
+    End Property
+
+    Public Property Support() As String
+        Get
+            Return mSupport
+        End Get
+        Set(ByVal value As String)
+            mSupport = value
         End Set
     End Property
 
@@ -381,9 +391,10 @@ Public Sub Clear()
     mClientExpectations = ""
     mOtherOptionAvailable = ""
     mReferral = ""
-    mCarePlan = ""
+        mCarePlan = ""
+        mSupport = ""
 
-End Sub
+    End Sub
 
 #Region "Retrieve Overloads" 
 
@@ -407,18 +418,18 @@ End Sub
 
     End Function
 
-    Protected Overridable Function Retrieve(ByVal sql As String) As Boolean 
+    Protected Overridable Function Retrieve(ByVal sql As String) As Boolean
 
-        Try 
+        Try
 
-            Dim dsRetrieve As DataSet = db.ExecuteDataSet(CommandType.Text, sql) 
+            Dim dsRetrieve As DataSet = db.ExecuteDataSet(CommandType.Text, sql)
 
-            If dsRetrieve IsNot Nothing AndAlso dsRetrieve.Tables.Count > 0 AndAlso dsRetrieve.Tables(0).Rows.Count > 0 Then 
+            If dsRetrieve IsNot Nothing AndAlso dsRetrieve.Tables.Count > 0 AndAlso dsRetrieve.Tables(0).Rows.Count > 0 Then
 
-                LoadDataRecord(dsRetrieve.Tables(0).Rows(0)) 
+                LoadDataRecord(dsRetrieve.Tables(0).Rows(0))
 
-                dsRetrieve = Nothing 
-                Return True 
+                dsRetrieve = Nothing
+                Return True
 
             Else
 
@@ -437,6 +448,28 @@ End Sub
 
     End Function
 
+    Public Sub SyncReferredBy(ByVal BeneficiaryID As Long, ByVal ReferredToLaywerByID As Long, ByVal ReferredToShelterByID As Long, ByVal StaffId As Long)
+
+        Dim sql As String = ""
+
+        If ReferredToLaywerByID > 0 And ReferredToShelterByID < 0 Then
+
+            sql = "UPDATE tblClientDetails SET ReferredToLaywer = 1 , ReferredToLawyerByID = " & StaffId & ", LawyerID = " & ReferredToLaywerByID & " WHERE BeneficiaryID = " & BeneficiaryID
+
+        ElseIf ReferredToShelterByID > 0 And ReferredToLaywerByID < 0 Then
+
+            sql = "UPDATE tblClientDetails SET ReferredToShelter = 1 , ReferredToShelterByID = " & StaffId & ", ShelterID = " & ReferredToShelterByID & " WHERE BeneficiaryID = " & BeneficiaryID
+
+        ElseIf ReferredToShelterByID > 0 And ReferredToLaywerByID > 0 Then
+
+            sql = "UPDATE tblClientDetails SET ReferredToLaywer = 1 , ReferredToLawyerByID = " & StaffId & ", ReferredToShelter = 1 , ReferredToShelterByID = " & StaffId & ", ShelterID = " & ReferredToShelterByID & ", LawyerID = " & ReferredToLaywerByID & " WHERE BeneficiaryID = " & BeneficiaryID
+
+        End If
+
+        db.ExecuteNonQuery(CommandType.Text, sql)
+
+    End Sub
+
     Public Overridable Function GetInitialCounsellingSession() As System.Data.DataSet
 
         Return GetInitialCounsellingSession(mInitialCounsellingSessionID)
@@ -453,12 +486,12 @@ End Sub
 
         End If
 
-        Dim sql As String = "Select DISTINCT B.*, D.Name As District, W.Name As Ward, ISNULL(S.UserFirstName, '') + ISNULL(S.UserSurname, '') AS AssignedBy, CAST(C.CreatedDate As Date) as DateAssigned from tblBeneficiaries B "
+        Dim sql As String = "Select DISTINCT B.*, D.Name As District, W.Name As Ward, S.StaffFullName AS AssignedBy, CAST(C.CreatedDate As Date) as DateAssigned from tblBeneficiaries B "
         sql &= "Left outer join tblAddresses A on A.OwnerID = B.BeneficiaryID  "
         sql &= "left outer join tblDistricts D on D.DistrictID = A.DistrictID "
         sql &= "Left outer join tblWards W on W.WardID = A.WardID  "
         sql &= "left outer join tblClientDetails C on C.BeneficiaryID = B.BeneficiaryID AND ReferredToCounsellor = 1 " & Criteria & " "
-        sql &= "Left outer join tblUsers S on S.UserID = C.CreatedBy "
+        sql &= "Left outer join tblStaffMembers S on S.StaffID = C.ReferredToCounsellorByID "
         sql &= "where B.BeneficiaryID in (Select BeneficiaryID from tblInitialCounsellingSession) OR "
         sql &= "B.BeneficiaryID in (Select BeneficiaryID from tblClientDetails where ReferredToCounsellor = 1 " & Criteria & " ) "
         sql &= "OR B.BeneficiaryID in (Select BeneficiaryID from tblReturningClientDetails) "
@@ -523,6 +556,7 @@ End Sub
             mOtherOptionAvailable = Catchnull(.Item("OtherOptionAvailable"), "")
             mReferral = Catchnull(.Item("Referral"), "")
             mCarePlan = Catchnull(.Item("CarePlan"), "")
+            mSupport = Catchnull(.Item("Support"), "")
 
         End With
 
@@ -559,6 +593,7 @@ End Sub
         db.AddInParameter(cmd, "@OtherOptionAvailable", DbType.String, mOtherOptionAvailable)
         db.AddInParameter(cmd, "@Referral", DbType.String, mReferral)
         db.AddInParameter(cmd, "@CarePlan", DbType.String, mCarePlan)
+        db.AddInParameter(cmd, "@Support", DbType.String, mSupport)
 
     End Sub
 

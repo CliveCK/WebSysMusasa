@@ -12,7 +12,6 @@ Public Class ShelterClientsList
 
             Dim objShelterDetails As New BusinessLogic.ShelterClientDetails(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
             Dim UseCriteria As Boolean
-            Dim SubOffices As String = "0"
 
             If SystemInitialization.EnforceUserFunctionalitySecurity(FunctionalityEnum.AllowViewAdminDetails) Then
 
@@ -25,24 +24,10 @@ Public Class ShelterClientsList
             End If
 
             Dim objSubOffices As New BusinessLogic.SubOffices(CookiesWrapper.thisConnectionName, CookiesWrapper.thisUserID)
-            Dim ds As DataSet = objSubOffices.GetSubOfficesByOrganization(CookiesWrapper.OrganizationID)
-            Dim myList As New List(Of String)
-
-            If Not IsNothing(ds) AndAlso ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
-
-                For Each row In ds.Tables(0).Rows
-
-                    myList.Add(row("SubOfficeID"))
-
-                Next
-
-            End If
-
-            SubOffices = IIf(myList.Count > 0, String.Join(",", myList.ToArray), "0")
 
             With radClients
 
-                .DataSource = objShelterDetails.GetBenDetails(UseCriteria, SubOffices)
+                .DataSource = objShelterDetails.GetBenDetails(UseCriteria, CookiesWrapper.StaffID)
 
                 ViewState("MShelter") = .DataSource
 
